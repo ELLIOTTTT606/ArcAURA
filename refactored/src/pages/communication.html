@@ -1,0 +1,72 @@
+<div id="comm" class="page">
+  <button class="back-btn" data-nav="home">← Retour</button>
+  <div class="container">
+    <header>
+      <h1>ArcAURA</h1>
+      <p class="subtitle">Supports de Communication</p>
+    </header>
+
+    <div class="info-box">
+      <h3>Communication Grand Public</h3>
+      <p>Vidéo promotionnelle et affiche tarifaire détaillant les 4 formules d'abonnement
+         (Pass Arc, Pass Arc IN, Pass Arc OUT, Pass Arc IN&OUT).
+         À télécharger séparément pour diffusion.</p>
+    </div>
+
+    <div class="comm-grid">
+      <div class="comm-card">
+        <div class="comm-title">📹 Vidéo Promotionnelle</div>
+        <div class="comm-badge">🎯 Destination : Grand Public</div>
+
+        <div class="video-wrap" id="videoWrap">
+          <button class="zoom-btn" data-modal="video" title="Zoom plein écran" aria-label="Ouvrir la vidéo en plein écran"
+                  style="position:absolute;top:8px;right:8px;z-index:10;background:rgba(0,0,0,0.6);border:2px solid rgba(0,245,255,0.5);color:#00f5ff;width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;backdrop-filter:blur(4px)">⛶</button>
+          <video id="mainVideo" src="assets/promo-video.mp4" controls playsinline
+                 style="width:100%;display:block;border-radius:10px;max-height:480px;object-fit:contain;background:#000">
+            <p style="color:#999;padding:20px;text-align:center">Chargement de la vidéo...</p>
+          </video>
+        </div>
+
+        <div class="feat-list">
+          <h4>Caractéristiques</h4>
+          <ul>
+            <li>Format promotionnel dynamique</li>
+            <li>Présentation visuelle du concept ArcAURA</li>
+            <li>Véhicules Renault rétrofités électriques</li>
+            <li>Adapté réseaux sociaux et événements</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="comm-card">
+        <div class="comm-title">🎨 Affiche Tarifaire</div>
+        <div class="comm-badge">💶 Grille Tarifaire – Grand Public</div>
+
+        <div class="poster-wrap">
+          <div data-modal="affiche"
+               style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:3;cursor:zoom-in;border-radius:10px"></div>
+          <button class="zoom-btn" data-modal="affiche" title="Zoom plein écran" aria-label="Ouvrir l'affiche en plein écran"
+                  style="position:absolute;top:8px;right:8px;z-index:10;background:rgba(0,0,0,0.6);border:2px solid rgba(0,245,255,0.5);color:#00f5ff;width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;backdrop-filter:blur(4px)">⛶</button>
+          <img src="assets/affiche.jpg" alt="Affiche tarifaire ArcAURA">
+        </div>
+
+        <div class="feat-list">
+          <h4>Contenu de l'affiche</h4>
+          <ul>
+            <li><strong>Pass Arc</strong> : 20€ + 0,20€/km – Réseau ArcAURA</li>
+            <li><strong>Pass Arc IN</strong> : 49€ + 0,20€/km – ArcAURA + SYTRAL</li>
+            <li><strong>Pass Arc OUT</strong> : 79€ + 0,20€/km – ArcAURA + SNCF</li>
+            <li><strong>Pass Arc IN&OUT</strong> : 120€ + 0,20€/km – Multimodal complet</li>
+            <li>QR Code + slogan "LOUEZ MOI !"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h3>📢 Utilisation des Supports</h3>
+      <p><strong>Vidéo :</strong> Réseaux sociaux, événements, bornes info parkings, présentation élus.<br>
+         <strong>Affiche :</strong> Parkings ArcAURA, centres commerciaux, gares SNCF, mairies partenaires, salons mobilité.</p>
+    </div>
+  </div>
+</div>

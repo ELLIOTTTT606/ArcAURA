@@ -1,0 +1,38 @@
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tab {
+  padding: 12px 22px;
+  background: var(--card);
+  border: 2px solid var(--bdr);
+  border-radius: 10px;
+  color: var(--t2);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .3s;
+  font-family: 'JetBrains Mono', monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab:hover {
+  border-color: var(--cyan);
+  transform: translateY(-2px);
+  box-shadow: var(--glow);
+}
+
+.tab.active {
+  background: linear-gradient(135deg, rgba(0, 245, 255, .1), rgba(189, 0, 255, .1));
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: var(--glow);
+}
+
+.content-section { display: none; }
+.content-section.active { display: block; animation: fadeUp .5s ease-out; }

@@ -1,0 +1,49 @@
+<div id="budget" class="page">
+  <button class="back-btn" data-nav="home">← Retour</button>
+  <div class="container">
+    <header>
+      <h1>ArcAURA</h1>
+      <p class="subtitle">Projection Financière 20 ans · 2026–2045</p>
+    </header>
+
+    <div class="tabs" id="budget-tabs">
+      <button class="tab active" data-tab="global">📊 Vue Globale 20 ans</button>
+      <button class="tab" data-tab="phase1">Phase 1 · Structuration</button>
+      <button class="tab" data-tab="phase2">Phase 2 · Pilote</button>
+      <button class="tab" data-tab="phase3">Phase 3 · Déploiement</button>
+      <button class="tab" data-tab="phase4">Phase 4 · Pérennisation</button>
+      <button class="tab" data-tab="post">Années 6–20 · Expansion</button>
+    </div>
+
+    <div id="global" class="content-section active">
+      <div class="kpi-grid" id="kpiGlobal"></div>
+      <div class="chart-container"><canvas id="chartGlobal"></canvas></div>
+      <div class="table-wrapper"><table id="tableGlobal"></table></div>
+    </div>
+
+    <div id="phase1" class="content-section">
+      <div class="info-box"><h3>Phase 1 : Structuration Territoriale (M0–M4)</h3><p>Validation faisabilité technique, réglementaire, commerciale · Budget 103 000 €</p></div>
+      <div class="table-wrapper"><table id="tablePhase1"></table></div>
+    </div>
+
+    <div id="phase2" class="content-section">
+      <div class="info-box"><h3>Phase 2 : Industrialisation Pilote (M5–M8)</h3><p>50 véhicules, 2 parkings, lancement commercial · Budget 4 535 000 €</p></div>
+      <div class="table-wrapper"><table id="tablePhase2"></table></div>
+    </div>
+
+    <div id="phase3" class="content-section">
+      <div class="info-box"><h3>Phase 3 : Déploiement Régional (M9–M35)</h3><p>15 sites, 300 véhicules, 2 500 abonnés · Budget 39 380 000 €</p></div>
+      <div class="table-wrapper"><table id="tablePhase3"></table></div>
+    </div>
+
+    <div id="phase4" class="content-section">
+      <div class="info-box"><h3>Phase 4 : Pérennisation et Expansion (M36–M59)</h3><p>Stabilisation AURA, 3 franchises régionales · Budget 17 335 000 €</p></div>
+      <div class="table-wrapper"><table id="tablePhase4"></table></div>
+    </div>
+
+    <div id="post" class="content-section">
+      <div class="info-box"><h3>Années 6–20 : Expansion Nationale (M60–M240)</h3><p>Croissance AURA + franchises nationales jusqu'à 12 régions</p></div>
+      <div class="table-wrapper"><table id="tablePost"></table></div>
+    </div>
+  </div>
+</div>

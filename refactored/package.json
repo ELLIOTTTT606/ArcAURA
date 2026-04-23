@@ -1,0 +1,16 @@
+{
+  "name": "arcaura-refactored",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ArcAURA — plateforme de projection financière, planning et empreinte carbone (version refactorée).",
+  "type": "module",
+  "scripts": {
+    "serve": "npx --yes http-server ./src -p 8080 -c-1 -o",
+    "lint":  "npx --yes eslint \"src/**/*.js\"",
+    "test":  "node --test tests"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

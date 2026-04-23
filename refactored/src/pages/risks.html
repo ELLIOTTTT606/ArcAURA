@@ -1,0 +1,33 @@
+<div id="risks" class="page">
+  <div class="container">
+    <button class="back-btn" data-nav="home">← Retour</button>
+    <h1 style="text-align:center;margin-bottom:8px">⚠️ Analyse des Risques</h1>
+    <p style="text-align:center;color:var(--t2);margin-bottom:28px;font-size:14px">
+      Identification, évaluation et plans de mitigation par phase
+    </p>
+
+    <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2)">
+        <span style="width:14px;height:14px;border-radius:3px;background:#e53935;display:inline-block"></span>Critique
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2)">
+        <span style="width:14px;height:14px;border-radius:3px;background:#f9a825;display:inline-block"></span>Élevé
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--t2)">
+        <span style="width:14px;height:14px;border-radius:3px;background:#43a047;display:inline-block"></span>Modéré
+      </div>
+    </div>
+
+    <div class="tabs" id="risks-tabs">
+      <button class="tab active" data-tab="r-p1">Phase 1 · Structuration</button>
+      <button class="tab" data-tab="r-p2">Phase 2 · Pilote</button>
+      <button class="tab" data-tab="r-p3">Phase 3 · Déploiement</button>
+      <button class="tab" data-tab="r-p4">Phase 4 · Pérennisation</button>
+    </div>
+
+    <div id="r-p1" class="content-section active"></div>
+    <div id="r-p2" class="content-section"></div>
+    <div id="r-p3" class="content-section"></div>
+    <div id="r-p4" class="content-section"></div>
+  </div>
+</div>
