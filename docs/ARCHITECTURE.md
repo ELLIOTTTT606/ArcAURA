@@ -17,66 +17,66 @@ expose 6 "pages" navigables depuis un menu d'accueil :
 ## Arborescence
 
 ```
-refactored/
-├── src/
-│   ├── index.html                 Shell minimal (head + <main> + modal)
-│   ├── assets/
-│   │   ├── arcaura-logo.svg       Logo (était en data-URI SVG base64)
-│   │   ├── affiche.jpg            Affiche tarifaire (était en base64 JPEG)
-│   │   └── promo-video.mp4        Vidéo promo (était en base64 MP4 inline)
-│   ├── styles/
-│   │   ├── main.css               Point d'entrée CSS (@import + vars + media)
-│   │   ├── base.css               Reset, body, background animé
-│   │   ├── layout.css             .page, .container, header, h1
-│   │   ├── components/
-│   │   │   ├── back-button.css
-│   │   │   ├── tabs.css
-│   │   │   ├── info-box.css
-│   │   │   ├── kpi.css
-│   │   │   ├── table.css
-│   │   │   ├── chart.css
-│   │   │   ├── legend.css
-│   │   │   └── modal.css
-│   │   └── pages/
-│   │       ├── home.css
-│   │       ├── budget.css
-│   │       ├── gantt.css
-│   │       └── communication.css
-│   ├── pages/                     Fragments HTML, chargés via fetch()
-│   │   ├── home.html
-│   │   ├── budget.html
-│   │   ├── gantt.html
-│   │   ├── communication.html
-│   │   ├── risks.html
-│   │   └── carbon.html
-│   └── js/
-│       ├── main.js                Bootstrap : charge les pages, câble les events
-│       ├── core/
-│       │   ├── navigation.js      navigate(), bindNavLinks()
-│       │   ├── tabs.js            attachTabs()
-│       │   └── modal.js           openModal(), closeModal(), bindModal()
-│       ├── utils/
-│       │   ├── format.js          fmt(), gc()
-│       │   └── dom.js             $(), $$(), setHTML()
-│       ├── data/
-│       │   ├── budget-actions.js  Détails mensuels (actionDetails)
-│       │   ├── gantt/
-│       │   │   ├── labels.js      Libellés des catégories Gantt
-│       │   │   ├── global.js      Vue globale 20 ans (gGlobal)
-│       │   │   ├── phase1.js      Données Gantt phase 1 (gP1)
-│       │   │   ├── phase2.js      Données Gantt phase 2 (gP2)
-│       │   │   ├── phase3.js      Données Gantt phase 3 (gP3)
-│       │   │   └── phase4.js      Données Gantt phase 4 (gP4)
-│       │   ├── risks/
-│       │   │   ├── risks-data.js      Catalogue des risques par phase
-│       │   │   └── risks-mapping.js   Coordonnées (prob × impact) par risque
-│       │   └── carbon-data.js     Phases + détails du cycle de vie carbone
-│       └── pages/
-│           ├── budget.js          generateData20Years, calculateAggregates, initBudget
-│           ├── gantt.js           renderGantt, renderStats, initGantt
-│           ├── communication.js   initComm (branche la source vidéo)
-│           ├── risks.js           renderRiskMatrix, renderRisks, showRisksInCell, initRisks
-│           └── carbon.js          initCarbon, renderCarbonCircle, showCarbonDetail
+/
+├── index.html                     Shell minimal (head + <main> + modal)
+├── .nojekyll                      Désactive Jekyll pour GitHub Pages
+├── assets/
+│   ├── arcaura-logo.svg           Logo (était en data-URI SVG base64)
+│   ├── affiche.jpg                Affiche tarifaire (était en base64 JPEG)
+│   └── promo-video.mp4            Vidéo promo (était en base64 MP4 inline)
+├── styles/
+│   ├── main.css                   Point d'entrée CSS (@import + vars + media)
+│   ├── base.css                   Reset, body, background animé
+│   ├── layout.css                 .page, .container, header, h1
+│   ├── components/
+│   │   ├── back-button.css
+│   │   ├── tabs.css
+│   │   ├── info-box.css
+│   │   ├── kpi.css
+│   │   ├── table.css
+│   │   ├── chart.css
+│   │   ├── legend.css
+│   │   └── modal.css
+│   └── pages/
+│       ├── home.css
+│       ├── budget.css
+│       ├── gantt.css
+│       └── communication.css
+├── pages/                         Fragments HTML, chargés via fetch()
+│   ├── home.html
+│   ├── budget.html
+│   ├── gantt.html
+│   ├── communication.html
+│   ├── risks.html
+│   └── carbon.html
+├── js/
+│   ├── main.js                    Bootstrap : charge les pages, câble les events
+│   ├── core/
+│   │   ├── navigation.js          navigate(), bindNavLinks()
+│   │   ├── tabs.js                attachTabs()
+│   │   └── modal.js               openModal(), closeModal(), bindModal()
+│   ├── utils/
+│   │   ├── format.js              fmt(), gc()
+│   │   └── dom.js                 $(), $$(), setHTML()
+│   ├── data/
+│   │   ├── budget-actions.js      Détails mensuels (actionDetails)
+│   │   ├── gantt/
+│   │   │   ├── labels.js          Libellés des catégories Gantt
+│   │   │   ├── global.js          Vue globale 20 ans (gGlobal)
+│   │   │   ├── phase1.js          Données Gantt phase 1 (gP1)
+│   │   │   ├── phase2.js          Données Gantt phase 2 (gP2)
+│   │   │   ├── phase3.js          Données Gantt phase 3 (gP3)
+│   │   │   └── phase4.js          Données Gantt phase 4 (gP4)
+│   │   ├── risks/
+│   │   │   ├── risks-data.js      Catalogue des risques par phase
+│   │   │   └── risks-mapping.js   Coordonnées (prob × impact) par risque
+│   │   └── carbon-data.js         Phases + détails du cycle de vie carbone
+│   └── pages/
+│       ├── budget.js              generateData20Years, calculateAggregates, initBudget
+│       ├── gantt.js               renderGantt, renderStats, initGantt
+│       ├── communication.js       initComm (branche la source vidéo)
+│       ├── risks.js               renderRiskMatrix, renderRisks, showRisksInCell, initRisks
+│       └── carbon.js              initCarbon, renderCarbonCircle, showCarbonDetail
 ├── tests/
 │   ├── format.test.mjs
 │   └── budget.test.mjs

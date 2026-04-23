@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { fmt, gc } from '../src/js/utils/format.js';
+import { fmt, gc } from '../js/utils/format.js';
 
 test('fmt rounds to integer and groups with French NBSP', () => {
   const formatted = fmt(1234567.49);

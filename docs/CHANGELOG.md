@@ -4,15 +4,16 @@
 
 ### Transformations structurelles
 
-- **Découpage du monolithe** : `/index.html` (1 495 lignes, ~7,5 Mo)
-  → 40+ fichiers organisés sous `/refactored/src/` (`styles/`, `pages/`,
-  `js/core/`, `js/utils/`, `js/data/`, `js/pages/`, `assets/`).
+- **Découpage du monolithe** : l'ancien `index.html` monolithique
+  (1 495 lignes, ~7,5 Mo) → 40+ fichiers organisés à la racine du
+  dépôt (`styles/`, `pages/`, `js/core/`, `js/utils/`, `js/data/`,
+  `js/pages/`, `assets/`).
 - **Extraction des assets binaires embarqués** :
-  - `src/assets/promo-video.mp4` (5,3 Mo) — était une chaîne base64 de
+  - `assets/promo-video.mp4` (5,3 Mo) — était une chaîne base64 de
     7,1 M caractères inline dans `initComm()` (ligne 612).
-  - `src/assets/affiche.jpg` (280 Ko) — était une data-URI inline
+  - `assets/affiche.jpg` (280 Ko) — était une data-URI inline
     dans la page Communication (ligne 305, ~373 K caractères).
-  - `src/assets/arcaura-logo.svg` — était une data-URI inline
+  - `assets/arcaura-logo.svg` — était une data-URI inline
     (ligne 157). Contenu conservé tel quel (SVG volontairement
     malformé dans l'original, avec `onerror` de repli).
   > Gain : le shell HTML passe de ~7,5 Mo à ~1 Ko.
@@ -22,7 +23,7 @@
 - **JavaScript modulaire** (ES modules) : séparation `core/` (navigation,
   onglets, modal), `utils/` (format, DOM helpers), `data/` (structures
   métier pures), `pages/` (logique par écran).
-- **HTML fragmenté** : chaque page dans `src/pages/*.html`, chargée au
+- **HTML fragmenté** : chaque page dans `pages/*.html`, chargée au
   démarrage par `main.js` via `fetch()`.
 - **Handlers inline `onclick` remplacés** par des attributs `data-nav`
   et `data-modal` + délégation d'événements — sauf les handlers
@@ -35,7 +36,7 @@
 - **Doublon `initRisks`** : l'original déclarait cette fonction deux fois
   (lignes 1091 puis 1159). En JS, la seconde gagne. Seule la seconde,
   plus complète (matrice + ré-render sur changement d'onglet), est
-  conservée dans `src/js/pages/risks.js`. Comportement exécuté identique.
+  conservée dans `js/pages/risks.js`. Comportement exécuté identique.
 - **`renderStats('g-ov-stats', …)`** : le libellé de la cinquième stat
   dans `initGantt` est préservé à `{l:'Break-even', v:'An 17'}` tel que
   dans l'original.
@@ -86,7 +87,7 @@ Ces points ont été **gardés à l'identique** pour respecter la règle
    tel quel dans chaque module.
 6. **Données chiffrées** (budgets, actions mensuelles, risques, KPIs,
    tonnages carbone, coordonnées de la matrice) : extraites **verbatim**
-   depuis `index.html` vers `src/js/data/` — aucun caractère modifié.
+   depuis `index.html` vers `js/data/` — aucun caractère modifié.
 7. **Affiche nommée `.jpg`** (et non `.png` comme dans le HTML original) :
    les bytes décodés depuis la base64 sont un JPEG (magic `/9j/`). Le
    renommage ne modifie aucun comportement visible — le navigateur affiche
