@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { generateData20Years, calculateAggregates } from '../src/js/pages/budget.js';
+import { generateData20Years, calculateAggregates } from '../js/pages/budget.js';
 
 test('generateData20Years produces 240 months (20 years * 12)', () => {
   const data = generateData20Years();
