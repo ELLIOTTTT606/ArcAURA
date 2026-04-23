@@ -1,0 +1,52 @@
+<div id="gantt" class="page">
+  <button class="back-btn" data-nav="home">← Retour</button>
+  <div class="container">
+    <header>
+      <h1>ArcAURA</h1>
+      <p class="subtitle">Diagrammes de Gantt · Planning détaillé</p>
+    </header>
+
+    <div class="tabs" id="gantt-tabs">
+      <button class="tab active" data-tab="g-overview">📊 Vue globale 20 ans</button>
+      <button class="tab" data-tab="g-p1">Phase 1 · Structuration</button>
+      <button class="tab" data-tab="g-p2">Phase 2 · Pilote</button>
+      <button class="tab" data-tab="g-p3">Phase 3 · Déploiement</button>
+      <button class="tab" data-tab="g-p4">Phase 4 · Pérennisation</button>
+    </div>
+
+    <div id="g-overview" class="content-section active">
+      <div class="info-box"><h3>Vue globale – M0 à M240 (20 ans)</h3><p>Timeline en mois sur l'ensemble du projet depuis la structuration initiale jusqu'à l'horizon 2045.</p></div>
+      <div class="stats" id="g-ov-stats"></div>
+      <div class="table-wrapper"><div id="g-overview-gantt"></div></div>
+      <div class="legend" id="g-overview-legend"></div>
+    </div>
+
+    <div id="g-p1" class="content-section">
+      <div class="info-box"><h3>Phase 1 – Structuration Territoriale</h3><p>05/01/2026 → 19/05/2026 · 21 semaines · Budget 103 000 €</p></div>
+      <div class="stats" id="g-p1-stats"></div>
+      <div class="table-wrapper"><div id="g-p1-gantt"></div></div>
+      <div class="legend" id="g-p1-legend"></div>
+    </div>
+
+    <div id="g-p2" class="content-section">
+      <div class="info-box"><h3>Phase 2 – Industrialisation & Déploiement Pilote</h3><p>19/05/2026 → 14/09/2026 · 17 semaines · Budget 4 535 000 €</p></div>
+      <div class="stats" id="g-p2-stats"></div>
+      <div class="table-wrapper"><div id="g-p2-gantt"></div></div>
+      <div class="legend" id="g-p2-legend"></div>
+    </div>
+
+    <div id="g-p3" class="content-section">
+      <div class="info-box"><h3>Phase 3 – Déploiement Régional</h3><p>Septembre 2026 → Décembre 2028 · 117 semaines · Budget 39 380 000 €</p></div>
+      <div class="stats" id="g-p3-stats"></div>
+      <div class="table-wrapper"><div id="g-p3-gantt"></div></div>
+      <div class="legend" id="g-p3-legend"></div>
+    </div>
+
+    <div id="g-p4" class="content-section">
+      <div class="info-box"><h3>Phase 4 – Pérennisation & Expansion Nationale</h3><p>Décembre 2028 → Novembre 2030 · 104 semaines · Budget 17 335 000 €</p></div>
+      <div class="stats" id="g-p4-stats"></div>
+      <div class="table-wrapper"><div id="g-p4-gantt"></div></div>
+      <div class="legend" id="g-p4-legend"></div>
+    </div>
+  </div>
+</div>

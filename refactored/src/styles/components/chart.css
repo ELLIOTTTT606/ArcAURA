@@ -1,0 +1,9 @@
+.chart-container {
+  margin: 32px 0;
+  padding: 26px;
+  background: var(--card);
+  border: 2px solid var(--bdr);
+  border-radius: 14px;
+}
+
+canvas { max-height: 480px; }
