@@ -1,17 +1,21 @@
-import { initBudget } from '../pages/budget.js';
-import { initGantt }  from '../pages/gantt.js';
-import { initComm }   from '../pages/communication.js';
-import { initRisks }  from '../pages/risks.js';
-import { initCarbon } from '../pages/carbon.js';
+import { initBudget }      from '../pages/budget.js';
+import { initGantt }       from '../pages/gantt.js';
+import { initComm }        from '../pages/communication.js';
+import { initRisks }       from '../pages/risks.js';
+import { initCarbon }      from '../pages/carbon.js';
+import { initAnnexes }     from '../pages/annexes.js';
+import { initBusinessKit } from '../pages/business-kit.js';
 
 const initialized = Object.create(null);
 
 const initializers = {
-  budget: initBudget,
-  gantt:  initGantt,
-  comm:   initComm,
-  risks:  initRisks,
-  carbon: initCarbon,
+  budget:        initBudget,
+  gantt:         initGantt,
+  comm:          initComm,
+  risks:         initRisks,
+  carbon:        initCarbon,
+  annexes:       initAnnexes,
+  'business-kit': initBusinessKit,
 };
 
 export function navigate(pageId) {

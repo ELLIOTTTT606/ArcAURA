@@ -1,0 +1,154 @@
+<div id="annexes" class="page">
+  <button class="back-btn" data-nav="home">← Retour</button>
+  <div class="container">
+    <header>
+      <h1>ArcAURA</h1>
+      <p class="subtitle">Annexes & Documentation · Dossier Technique Complet</p>
+    </header>
+
+    <div class="tabs" id="annexes-tabs">
+      <button class="tab active" data-tab="ann-tech">🔧 Technique</button>
+      <button class="tab" data-tab="ann-juridique">⚖️ Juridique</button>
+      <button class="tab" data-tab="ann-partenaires">🤝 Partenaires</button>
+      <button class="tab" data-tab="ann-docs">📄 Documents</button>
+    </div>
+
+    <!-- TECHNIQUE -->
+    <div id="ann-tech" class="content-section active">
+      <div class="info-box">
+        <h3>Spécifications Techniques — Retrofit Électrique</h3>
+        <p>Normes, homologations et contraintes techniques du programme de rétrofit des véhicules thermiques</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr>
+            <th>Paramètre</th><th>Spécification</th><th>Norme</th><th>Statut</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Capacité batterie</td><td>40 kWh LFP</td><td>IEC 62660</td><td style="color:var(--green)">✔ Validé</td></tr>
+            <tr><td>Autonomie réelle</td><td>180–220 km</td><td>WLTP cycle urbain</td><td style="color:var(--green)">✔ Validé</td></tr>
+            <tr><td>Connecteur recharge</td><td>Type 2 AC · CCS DC</td><td>EN 62196-2/3</td><td style="color:var(--green)">✔ Validé</td></tr>
+            <tr><td>Puissance de charge</td><td>11 kW AC / 50 kW DC</td><td>IEC 61851-1</td><td style="color:var(--green)">✔ Validé</td></tr>
+            <tr><td>Homologation retrofit</td><td>Arrêté du 13 mars 2020</td><td>R40 & R100</td><td style="color:var(--green)">✔ Certifié</td></tr>
+            <tr><td>Température exploitation</td><td>-20°C à +45°C</td><td>ISO 12405-4</td><td style="color:var(--green)">✔ Testé</td></tr>
+            <tr><td>BMS embarqué</td><td>CANbus + OBD2</td><td>ISO 15765</td><td style="color:var(--cyan)">→ En cours</td></tr>
+            <tr><td>Cybersécurité véhicule</td><td>WP.29 CSMS</td><td>UN R155</td><td style="color:var(--cyan)">→ Audit Q3 2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box" style="margin-top:24px">
+        <h3>Infrastructure de Recharge — Parking A & B</h3>
+        <p>Déploiement pilote Phase 2 : 2 parkings, 50 bornes, capacité 300 véhicules à horizon Phase 3</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr>
+            <th>Site</th><th>Nb. Bornes</th><th>Puissance</th><th>Opérateur réseau</th><th>Mise en service</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Parking A — Centre ville</td><td>20 points</td><td>22 kW AC</td><td>ENEDIS HTA</td><td>M6 (oct. 2026)</td></tr>
+            <tr><td>Parking B — Zone péri-urbaine</td><td>30 points</td><td>22 kW AC + 2×50 kW DC</td><td>ENEDIS HTB</td><td>M7 (nov. 2026)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- JURIDIQUE -->
+    <div id="ann-juridique" class="content-section">
+      <div class="info-box">
+        <h3>Cadre Juridique & Réglementaire</h3>
+        <p>Textes applicables, autorisations obtenues et conformité réglementaire du projet ArcAURA</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr>
+            <th>Document</th><th>Référence</th><th>Date</th><th>Statut</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Agrément rétrofitteur</td><td>DREAL AURA / MIN-2025-001</td><td>janv. 2025</td><td style="color:var(--green)">✔ Obtenu</td></tr>
+            <tr><td>Convention occupation domaine public</td><td>Délibération CM 2025-047</td><td>mars 2025</td><td style="color:var(--green)">✔ Signé</td></tr>
+            <tr><td>Déclaration IRVE (bornes)</td><td>Art. R353-5 Code de l'énergie</td><td>avr. 2025</td><td style="color:var(--green)">✔ Déposé</td></tr>
+            <tr><td>Acte de société (SAS)</td><td>RCS Lyon B 920 345 678</td><td>févr. 2025</td><td style="color:var(--green)">✔ Immatriculé</td></tr>
+            <tr><td>RGPD — DPA collecte télématique</td><td>CNIL réf. 2025-ARCAURA-01</td><td>mai 2025</td><td style="color:var(--green)">✔ Conforme</td></tr>
+            <tr><td>Contrat-cadre opérateur mobilité</td><td>ARCAURA / SYTRAL Mobilités</td><td>juin 2025</td><td style="color:var(--cyan)">→ Négociation</td></tr>
+            <tr><td>Label ADVENIR (subvention bornes)</td><td>ADEME / Enedis</td><td>sept. 2025</td><td style="color:var(--cyan)">→ Dossier M2</td></tr>
+            <tr><td>Assurance RC Pro flotte</td><td>AXA Entreprises — Police 789-ARCAURA</td><td>oct. 2025</td><td style="color:var(--cyan)">→ Renouvellement M5</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-box" style="margin-top:24px">
+        <h3>Conditions Générales d'Utilisation — Pass Arc</h3>
+        <p>Synthèse des CGU applicables aux 4 formules d'abonnement</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr>
+            <th>Clause</th><th>Pass Arc</th><th>Pass Arc IN</th><th>Pass Arc OUT</th><th>Pass Arc IN&amp;OUT</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Abonnement mensuel HT</td><td>20 €</td><td>49 €</td><td>79 €</td><td>120 €</td></tr>
+            <tr><td>Tarif/km HT</td><td>0,20 €/km</td><td>0,12 €/km</td><td>0,10 €/km</td><td>0,08 €/km</td></tr>
+            <tr><td>Zone couverte</td><td>Parking A</td><td>Intra-urbain</td><td>Péri-urbain</td><td>Région AURA</td></tr>
+            <tr><td>Durée d'engagement</td><td>Sans</td><td>3 mois</td><td>6 mois</td><td>12 mois</td></tr>
+            <tr><td>Assurance conducteur</td><td>Incluse</td><td>Incluse</td><td>Incluse</td><td>Incluse</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PARTENAIRES -->
+    <div id="ann-partenaires" class="content-section">
+      <div class="info-box">
+        <h3>Écosystème Partenarial</h3>
+        <p>Partenaires institutionnels, financiers et opérationnels engagés sur le projet ArcAURA</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr>
+            <th>Partenaire</th><th>Type</th><th>Rôle</th><th>Engagement (€)</th><th>Phase</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Région Auvergne-Rhône-Alpes</td><td>Institutionnel</td><td>Subvention investissement + foncier</td><td>1 500 000 €</td><td>P1–P3</td></tr>
+            <tr><td>ADEME</td><td>Financement public</td><td>Aide ADVENIR bornes + bonus rétrofit</td><td>800 000 €</td><td>P2–P3</td></tr>
+            <tr><td>BPI France</td><td>Financement</td><td>Prêt French Fab + garantie</td><td>2 000 000 €</td><td>P2</td></tr>
+            <tr><td>SYTRAL Mobilités</td><td>Opérateur transport</td><td>Intégration multimodale MaaS</td><td>—</td><td>P3–P4</td></tr>
+            <tr><td>Métropole de Lyon</td><td>Collectivité</td><td>Mise à disposition parkings + voirie</td><td>300 000 €</td><td>P2–P3</td></tr>
+            <tr><td>Enedis</td><td>Gestionnaire réseau</td><td>Raccordement IRVE HTB/HTA</td><td>—</td><td>P2</td></tr>
+            <tr><td>Stellantis (Citroën/Renault)</td><td>Industriel</td><td>Fourniture véhicules base + garantie</td><td>—</td><td>P2–P3</td></tr>
+            <tr><td>Groupe Rocher / investisseurs privés</td><td>Capital-risque</td><td>Fonds propres seed round</td><td>500 000 €</td><td>P1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div id="ann-docs" class="content-section">
+      <div class="info-box">
+        <h3>Bibliothèque Documentaire</h3>
+        <p>Ensemble des livrables, études et rapports produits dans le cadre du projet</p>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead><tr>
+            <th>Document</th><th>Type</th><th>Date</th><th>Version</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Étude de faisabilité technico-économique</td><td>Rapport</td><td>nov. 2024</td><td>v2.1</td></tr>
+            <tr><td>Business Plan 20 ans</td><td>Financier</td><td>janv. 2025</td><td>v3.0</td></tr>
+            <tr><td>Analyse cycle de vie carbone (ACV)</td><td>Environnemental</td><td>mars 2025</td><td>v1.4</td></tr>
+            <tr><td>Plan de déploiement infrastructure IRVE</td><td>Technique</td><td>avr. 2025</td><td>v1.2</td></tr>
+            <tr><td>Dossier de demande de subvention ADEME</td><td>Administratif</td><td>mai 2025</td><td>v1.0</td></tr>
+            <tr><td>Cahier des charges rétrofitteur</td><td>Technique</td><td>juin 2025</td><td>v2.0</td></tr>
+            <tr><td>Rapport d'impact territorial</td><td>Socio-économique</td><td>juil. 2025</td><td>v1.1</td></tr>
+            <tr><td>Présentation investisseurs (pitch deck)</td><td>Commercial</td><td>sept. 2025</td><td>v4.2</td></tr>
+            <tr><td>Contrats-types abonnés Pass Arc</td><td>Juridique</td><td>oct. 2025</td><td>v1.3</td></tr>
+            <tr><td>Plan de gestion des risques</td><td>Gouvernance</td><td>nov. 2025</td><td>v2.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

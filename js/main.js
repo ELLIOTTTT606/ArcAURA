@@ -3,7 +3,7 @@ import { bindModal }              from './core/modal.js';
 import { showRisksInCell }        from './pages/risks.js';
 import { showCarbonDetail }       from './pages/carbon.js';
 
-const PAGES = ['home', 'budget', 'gantt', 'communication', 'risks', 'carbon'];
+const PAGES = ['home', 'budget', 'gantt', 'communication', 'risks', 'carbon', 'annexes', 'business-kit'];
 
 async function loadPages() {
   const root = document.getElementById('app');

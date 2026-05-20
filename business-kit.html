@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcAURA — Business Kit Investisseurs</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<main id="app">
+  <div id="business-kit" class="page active">
+    <button class="back-btn" onclick="window.location='index.html'">← Retour</button>
+    <div class="container">
+      <header>
+        <h1>ArcAURA</h1>
+        <p class="subtitle">Business Kit · Dossier Investisseurs & Partenaires 2026</p>
+      </header>
+
+      <div class="tabs" id="bk-tabs">
+        <button class="tab active" data-tab="bk-exec">🎯 Executive Summary</button>
+        <button class="tab" data-tab="bk-modele">💰 Modèle Économique</button>
+        <button class="tab" data-tab="bk-kpis">📊 Chiffres Clés</button>
+        <button class="tab" data-tab="bk-roadmap">🗺️ Roadmap</button>
+        <button class="tab" data-tab="bk-contact">🤝 Équipe & Contact</button>
+      </div>
+
+      <!-- EXECUTIVE SUMMARY -->
+      <div id="bk-exec" class="content-section active">
+        <div class="info-box">
+          <h3>Le Projet ArcAURA en 3 lignes</h3>
+          <p>Réseau de mobilité électrique partagée 100 % rétrofité, déployé sur 15 sites en région Auvergne-Rhône-Alpes, pour 2 500 abonnés actifs à horizon 2029.</p>
+        </div>
+
+        <div class="kpi-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:28px">
+          <div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:20px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--cyan)">300</div>
+            <div style="font-size:12px;color:var(--t2);margin-top:4px">Véhicules rétrofités</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:20px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--green)">15</div>
+            <div style="font-size:12px;color:var(--t2);margin-top:4px">Sites de déploiement</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:20px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--purple)">2 500</div>
+            <div style="font-size:12px;color:var(--t2);margin-top:4px">Abonnés cibles (M36)</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:20px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--orange)">20 ans</div>
+            <div style="font-size:12px;color:var(--t2);margin-top:4px">Horizon du projet</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:20px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--cyan)">−1 464 t</div>
+            <div style="font-size:12px;color:var(--t2);margin-top:4px">CO₂ évités (pilote 10 ans)</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--bdr);border-radius:10px;padding:20px;text-align:center">
+            <div style="font-size:28px;font-weight:800;color:var(--green)">61 M€</div>
+            <div style="font-size:12px;color:var(--t2);margin-top:4px">Budget total 4 phases</div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h3>Proposition de Valeur</h3>
+          <p>ArcAURA transforme des véhicules thermiques en flotte électrique partagée à coût d'acquisition réduit (−40 % vs neuf), accessible via 4 formules d'abonnement flexibles. La plateforme génère des revenus récurrents (abonnement + usage + data mobilité) tout en répondant aux obligations ZFE des métropoles de la région AURA.</p>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Problème adressé</th><th>Solution ArcAURA</th><th>Avantage concurrentiel</th></tr></thead>
+            <tbody>
+              <tr><td>Coût élevé du véhicule électrique neuf</td><td>Retrofit : 8 000–12 000 € vs 30 000 € neuf</td><td>Économie circulaire + homologation française</td></tr>
+              <tr><td>Accès limité aux ZFE pour flottes pro</td><td>Flotte 100 % élec. partagée, clé en main</td><td>Conformité ZFE garantie dès M5</td></tr>
+              <tr><td>Infrastructure de recharge insuffisante</td><td>Bornes dédiées sur parkings partenaires</td><td>Accords fonciers publics long terme</td></tr>
+              <tr><td>Mobilité intermodale fragmentée</td><td>Intégration MaaS (SYTRAL Mobilités)</td><td>Accès via app Navigo/TCL unifié</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- MODÈLE ÉCONOMIQUE -->
+      <div id="bk-modele" class="content-section">
+        <div class="info-box">
+          <h3>Architecture des Revenus</h3>
+          <p>Trois flux de revenus complémentaires assurant la rentabilité dès la Phase 3</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Source de revenu</th><th>Mécanisme</th><th>Contribution CA (M36)</th><th>Marge</th></tr></thead>
+            <tbody>
+              <tr><td>🔁 Abonnements Pass Arc</td><td>Forfait mensuel × 2 500 abonnés</td><td>~40 %</td><td>Élevée (récurrent)</td></tr>
+              <tr><td>⚡ Facturation à l'usage (km)</td><td>0,08–0,20 €/km selon formule</td><td>~35 %</td><td>Moyenne (variable)</td></tr>
+              <tr><td>📡 Données mobilité (B2B)</td><td>Agrégation OD, flux, comportements</td><td>~10 %</td><td>Très élevée</td></tr>
+              <tr><td>🏢 Services entreprises</td><td>Flotte dédiée, facturation mensuelle</td><td>~10 %</td><td>Élevée</td></tr>
+              <tr><td>♻️ Subventions & certificats CEE</td><td>ADEME, Région, CEE retrofit</td><td>~5 %</td><td>100 %</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-box" style="margin-top:24px">
+          <h3>Structure des Coûts</h3>
+          <p>Coûts opérationnels récurrents et postes d'investissement par phase</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Poste de coût</th><th>Nature</th><th>Phase 2</th><th>Phase 3</th><th>Phase 4</th></tr></thead>
+            <tbody>
+              <tr><td>Retrofit véhicules</td><td>CAPEX</td><td>600 000 €</td><td>2 400 000 €</td><td>1 200 000 €</td></tr>
+              <tr><td>Infrastructure IRVE</td><td>CAPEX</td><td>1 200 000 €</td><td>4 800 000 €</td><td>2 000 000 €</td></tr>
+              <tr><td>Maintenance flotte</td><td>OPEX</td><td>80 000 €/an</td><td>480 000 €/an</td><td>720 000 €/an</td></tr>
+              <tr><td>Équipe opérationnelle</td><td>OPEX</td><td>240 000 €/an</td><td>960 000 €/an</td><td>1 440 000 €/an</td></tr>
+              <tr><td>Plateforme tech & data</td><td>OPEX</td><td>120 000 €/an</td><td>300 000 €/an</td><td>420 000 €/an</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CHIFFRES CLÉS -->
+      <div id="bk-kpis" class="content-section">
+        <div class="info-box">
+          <h3>Indicateurs Financiers Clés</h3>
+          <p>Projection sur 20 ans — horizon 2026–2045</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Indicateur</th><th>Fin Phase 1</th><th>Fin Phase 2</th><th>Fin Phase 3</th><th>Fin Phase 4</th><th>An 20</th></tr></thead>
+            <tbody>
+              <tr><td>Véhicules actifs</td><td>0</td><td>50</td><td>300</td><td>500</td><td>2 000+</td></tr>
+              <tr><td>Abonnés</td><td>0</td><td>200</td><td>2 500</td><td>5 000</td><td>25 000</td></tr>
+              <tr><td>CA annuel estimé</td><td>—</td><td>420 k€</td><td>3,8 M€</td><td>8,2 M€</td><td>42 M€</td></tr>
+              <tr><td>EBITDA</td><td>—</td><td>−380 k€</td><td>+620 k€</td><td>+2,1 M€</td><td>+14 M€</td></tr>
+              <tr><td>Point mort (break-even)</td><td colspan="5" style="color:var(--cyan)">Mois 28 · Phase 3 (estimé)</td></tr>
+              <tr><td>VAN actualisée (7 %)</td><td colspan="5" style="color:var(--green)">+18,4 M€ sur 20 ans</td></tr>
+              <tr><td>TRI investisseur</td><td colspan="5" style="color:var(--green)">21,3 %</td></tr>
+              <tr><td>Délai de retour capital</td><td colspan="5" style="color:var(--orange)">6,5 ans</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-box" style="margin-top:24px">
+          <h3>Levée de Fonds & Structure du Capital</h3>
+          <p>Besoin de financement total et répartition cible au closing de la Série A</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Tranche</th><th>Montant</th><th>Instrument</th><th>Calendrier</th></tr></thead>
+            <tbody>
+              <tr><td>Seed Round (clôturé)</td><td>500 000 €</td><td>Equity — 8 %</td><td>T1 2025</td></tr>
+              <tr><td>Subventions publiques</td><td>2 300 000 €</td><td>Subvention ADEME + Région</td><td>T3 2025 – T2 2026</td></tr>
+              <tr><td>Prêt BPI France</td><td>2 000 000 €</td><td>Prêt French Fab</td><td>T2 2026</td></tr>
+              <tr><td><strong>Série A (en cours)</strong></td><td><strong>4 000 000 €</strong></td><td><strong>Equity — 20 %</strong></td><td><strong>T3 2026</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ROADMAP -->
+      <div id="bk-roadmap" class="content-section">
+        <div class="info-box">
+          <h3>Feuille de Route Stratégique — 4 Phases + Expansion</h3>
+          <p>De la validation du concept (M0) à l'expansion nationale (M60+)</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Phase</th><th>Période</th><th>Budget</th><th>Jalons clés</th><th>KPI cible</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><strong style="color:var(--cyan)">Phase 1</strong><br>Structuration</td>
+                <td>M0–M4<br>jan–mai 2026</td>
+                <td>103 000 €</td>
+                <td>Études, agréments, constitution SAS, accords fonciers</td>
+                <td>Dossier complet déposé</td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--green)">Phase 2</strong><br>Pilote</td>
+                <td>M5–M8<br>juin–sept 2026</td>
+                <td>4 535 000 €</td>
+                <td>50 rétrofits, 2 parkings, 200 abonnés, lancement commercial</td>
+                <td>Taux d'utilisation &gt; 60 %</td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--purple)">Phase 3</strong><br>Déploiement</td>
+                <td>M9–M35<br>oct 2026–déc 2028</td>
+                <td>39 380 000 €</td>
+                <td>15 sites, 300 véhicules, 2 500 abonnés, break-even M28</td>
+                <td>CA &gt; 3,8 M€/an</td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--orange)">Phase 4</strong><br>Pérennisation</td>
+                <td>M36–M59<br>jan 2029–nov 2030</td>
+                <td>17 335 000 €</td>
+                <td>Stabilisation AURA, 3 franchises régionales, IPO préparation</td>
+                <td>EBITDA &gt; 2,1 M€/an</td>
+              </tr>
+              <tr>
+                <td><strong style="color:var(--cyan)">Expansion</strong><br>Nationale</td>
+                <td>M60–M240<br>2031–2045</td>
+                <td>—</td>
+                <td>12 régions, 25 000 abonnés, franchise ArcAURA Labs</td>
+                <td>CA cible 42 M€/an</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ÉQUIPE & CONTACT -->
+      <div id="bk-contact" class="content-section">
+        <div class="info-box">
+          <h3>Équipe Fondatrice</h3>
+          <p>Compétences complémentaires couvrant mobilité, tech, finance et territoire</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Rôle</th><th>Profil</th><th>Expertise clé</th></tr></thead>
+            <tbody>
+              <tr><td>CEO / Cofondateur</td><td>Ingénieur mobilité durable, 12 ans en collectivités</td><td>Partenariats institutionnels, stratégie territoriale</td></tr>
+              <tr><td>CTO / Cofondateur</td><td>Ingénieur électronique embarqué, ex-startup autotech</td><td>BMS, retrofit, intégration OBD/CANbus</td></tr>
+              <tr><td>CFO</td><td>Expert-comptable, ex-BPI France</td><td>Levée de fonds, structuration financière</td></tr>
+              <tr><td>Head of Ops</td><td>Ancien responsable flotte Groupe La Poste AURA</td><td>Logistique, maintenance, exploitation terrain</td></tr>
+              <tr><td>Head of Product</td><td>Product designer, ex-Blablacar / Lime</td><td>App mobile, UX, intégration MaaS</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="info-box" style="margin-top:24px">
+          <h3>Nous Contacter</h3>
+          <p>Pour toute demande d'information, partenariat ou investissement</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead><tr><th>Canal</th><th>Coordonnées</th></tr></thead>
+            <tbody>
+              <tr><td>📧 Email investisseurs</td><td>invest@arcaura.fr</td></tr>
+              <tr><td>📧 Email partenariats</td><td>partenaires@arcaura.fr</td></tr>
+              <tr><td>📞 Téléphone</td><td>+33 (0)4 72 XX XX XX</td></tr>
+              <tr><td>🏢 Siège social</td><td>69002 Lyon — Confluence Innovation Hub</td></tr>
+              <tr><td>🌐 Site web</td><td>arcaura.fr</td></tr>
+              <tr><td>💼 LinkedIn</td><td>linkedin.com/company/arcaura</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script type="module">
+  import { attachTabs } from './js/core/tabs.js';
+  attachTabs('business-kit');
+</script>
+</body>
+</html>
