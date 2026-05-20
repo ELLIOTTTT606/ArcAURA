@@ -3,170 +3,1921 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ArcAURA — Annexes & Documentation</title>
-  <link rel="stylesheet" href="styles/main.css">
+  <title>ArcAURA — Annexes DP1–DP7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark: #0F0F0F;
+      --light: #F5F4F1;
+      --white: #fff;
+      --green: #1B7A3D;
+      --green-light: #E8F4EC;
+      --amber: #D97706;
+      --red: #DC2626;
+      --blue: #2563EB;
+      --purple: #7C3AED;
+      --t1: #111111;
+      --t2: #555555;
+      --t3: #888888;
+      --bdr: rgba(0,0,0,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--t1);
+      background: var(--dark);
+    }
+
+    /* ── PROGRESS BAR ── */
+    #pbar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--green);
+      z-index: 1000;
+      transition: width 0.05s linear;
+    }
+
+    /* ── SIDE NAV ── */
+    #sidenav {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      z-index: 900;
+    }
+    .nav-dot {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-dot-line {
+      height: 1px;
+      width: 8px;
+      background: rgba(255,255,255,0.3);
+      transition: width 0.3s ease, background 0.3s ease;
+    }
+    .nav-dot.active .nav-dot-line {
+      width: 20px;
+      background: var(--green);
+    }
+    .nav-dot-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+    .nav-dot.active .nav-dot-label { color: rgba(255,255,255,0.85); }
+
+    /* ── TOOLTIP ── */
+    #tooltip {
+      position: fixed;
+      background: var(--dark);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 800;
+      max-width: 220px;
+    }
+    #tooltip.show { opacity: 1; }
+
+    /* ── SECTIONS ── */
+    .sec-dark {
+      background: var(--dark);
+      color: #fff;
+      min-height: 100vh;
+      padding: min(15vh, 120px) clamp(24px, 6vw, 80px);
+      position: relative;
+      overflow: hidden;
+    }
+    .sec-light {
+      background: var(--light);
+      color: var(--t1);
+      padding: min(12vh, 96px) clamp(24px, 6vw, 80px);
+    }
+    .sec-white {
+      background: var(--white);
+      color: var(--t1);
+      padding: min(12vh, 96px) clamp(24px, 6vw, 80px);
+    }
+
+    .inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── GHOST NUMBER ── */
+    .ghost-num {
+      position: absolute;
+      right: -0.05em;
+      top: 50%;
+      transform: translateY(-55%);
+      font-size: clamp(200px, 32vw, 480px);
+      font-weight: 800;
+      line-height: 1;
+      color: #fff;
+      opacity: 0.03;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.05em;
+    }
+
+    /* ── EYEBROW ── */
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+    .sec-dark .eyebrow { color: rgba(27,122,61,0.85); }
+
+    /* ── DISPLAY TITLE ── */
+    .display-title {
+      font-size: clamp(48px, 9vw, 144px);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .sec-dark .display-title { color: #fff; }
+
+    .display-sub {
+      font-size: clamp(15px, 1.8vw, 20px);
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.55);
+      max-width: 540px;
+      margin-bottom: 56px;
+    }
+    .sec-light .display-sub, .sec-white .display-sub { color: var(--t2); }
+
+    /* ── SECTION TITLE (inside annexes) ── */
+    .sec-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .sec-title-sub {
+      font-size: 15px;
+      color: var(--t2);
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    /* ── ANN LABEL ── */
+    .ann-label {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      border: 1px solid var(--green);
+      border-radius: 2px;
+      padding: 2px 7px;
+      margin-bottom: 20px;
+    }
+
+    /* ── STAT CELLS ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 48px;
+    }
+    .stat-cell {
+      background: rgba(255,255,255,0.03);
+      padding: 28px 24px;
+    }
+    .stat-cell-num {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .stat-cell-num .unit {
+      font-size: 0.45em;
+      font-weight: 500;
+      letter-spacing: 0;
+      color: rgba(255,255,255,0.5);
+    }
+    .stat-cell-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* light stat cells */
+    .stat-grid-light {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .stat-cell-light {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-top: 3px solid var(--green);
+      padding: 24px 20px;
+    }
+    .stat-cell-light .stat-num {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--green);
+      margin-bottom: 4px;
+    }
+    .stat-cell-light .stat-lbl {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--t2);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── TABLES ── */
+    .ann-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 40px;
+    }
+    .ann-table th {
+      background: var(--t1);
+      color: #fff;
+      font-weight: 600;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 14px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .ann-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--bdr);
+      vertical-align: top;
+    }
+    .ann-table tr:last-child td { border-bottom: none; }
+    .ann-table tr:hover td { background: rgba(27,122,61,0.04); }
+
+    /* white-bg tables */
+    .ann-table-light th { background: var(--green); }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .badge-green  { background: var(--green-light); color: var(--green); }
+    .badge-amber  { background: #FEF3C7; color: #92400E; }
+    .badge-red    { background: #FEE2E2; color: #991B1B; }
+    .badge-blue   { background: #DBEAFE; color: #1E40AF; }
+    .badge-gray   { background: #F3F4F6; color: #374151; }
+    .badge-high   { background: #FEE2E2; color: #991B1B; }
+    .badge-med    { background: #FEF3C7; color: #92400E; }
+    .badge-low    { background: var(--green-light); color: var(--green); }
+
+    /* ── FINANCING BAR ── */
+    .fin-bar-wrap { margin-bottom: 32px; }
+    .fin-bar {
+      display: flex;
+      height: 20px;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .fin-seg { height: 100%; transition: opacity 0.2s; }
+    .fin-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+    }
+    .fin-leg-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--t2);
+    }
+    .fin-leg-dot {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline-track {
+      display: flex;
+      height: 40px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .tl-phase {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .tl-p1 { background: #0EA5E9; flex: 4; }
+    .tl-p2 { background: var(--green); flex: 4; }
+    .tl-p3 { background: var(--blue); flex: 27; }
+    .tl-p4 { background: var(--amber); flex: 24; }
+
+    .jalon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .jalon-card {
+      border: 1px solid var(--bdr);
+      border-left: 4px solid var(--green);
+      padding: 20px 18px;
+      background: #fff;
+    }
+    .jalon-mois {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .jalon-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--t1);
+      margin-bottom: 6px;
+    }
+    .jalon-desc {
+      font-size: 13px;
+      color: var(--t2);
+      line-height: 1.5;
+    }
+
+    /* ── RISK MATRIX ── */
+    .risk-matrix-wrap {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+    .risk-matrix {
+      display: grid;
+      grid-template-columns: 32px repeat(4, 64px);
+      grid-template-rows: repeat(4, 64px) 32px;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+    .rm-cell {
+      border-radius: 4px;
+      position: relative;
+      cursor: default;
+    }
+    .rm-axis-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--t3);
+    }
+    .rm-axis-label.vert {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+    }
+    /* row colors by probability (row 4=top=high, row 1=bottom=low) */
+    .rm-p4i4 { background: #DC2626; }  /* high/high = red */
+    .rm-p4i3 { background: #DC2626; }
+    .rm-p4i2 { background: #F97316; }  /* orange */
+    .rm-p4i1 { background: #FBBF24; }  /* amber */
+    .rm-p3i4 { background: #DC2626; }
+    .rm-p3i3 { background: #F97316; }
+    .rm-p3i2 { background: #FBBF24; }
+    .rm-p3i1 { background: #86EFAC; }  /* green */
+    .rm-p2i4 { background: #F97316; }
+    .rm-p2i3 { background: #FBBF24; }
+    .rm-p2i2 { background: #FBBF24; }
+    .rm-p2i1 { background: #86EFAC; }
+    .rm-p1i4 { background: #86EFAC; }
+    .rm-p1i3 { background: #86EFAC; }
+    .rm-p1i2 { background: #86EFAC; }
+    .rm-p1i1 { background: #D1FAE5; }
+
+    .risk-token {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      border: 2px solid rgba(255,255,255,0.4);
+      transition: transform 0.15s;
+    }
+    .risk-token:hover { transform: translate(-50%,-50%) scale(1.15); }
+
+    .risk-legend { flex: 1; min-width: 240px; }
+    .risk-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: var(--t2);
+    }
+    .risk-legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── BENCHMARK GRID ── */
+    .bench-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--bdr);
+      margin-bottom: 40px;
+      font-size: 14px;
+    }
+    .bench-grid .bg-head {
+      background: var(--t1);
+      color: #fff;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 12px 14px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .bench-grid .bg-head:last-child { border-right: none; }
+    .bench-grid .bg-cell {
+      padding: 12px 14px;
+      border-right: 1px solid var(--bdr);
+      border-top: 1px solid var(--bdr);
+      vertical-align: top;
+    }
+    .bench-grid .bg-cell:last-child { border-right: none; }
+    .bench-grid .bg-cell.win {
+      background: var(--green-light);
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* ── SCENARIO CARDS ── */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .scenario-card {
+      border: 1px solid var(--bdr);
+      border-top-width: 4px;
+      padding: 24px 20px;
+    }
+    .sc-nom { border-top-color: var(--green); }
+    .sc-deg { border-top-color: var(--amber); }
+    .sc-crit { border-top-color: var(--red); }
+    .scenario-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .sc-nom .scenario-tag { color: var(--green); }
+    .sc-deg .scenario-tag { color: var(--amber); }
+    .sc-crit .scenario-tag { color: var(--red); }
+    .scenario-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .scenario-desc {
+      font-size: 13px;
+      color: var(--t2);
+      line-height: 1.55;
+    }
+
+    /* ── PILOTAGE CARDS ── */
+    .pilotage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .pilotage-card {
+      background: var(--dark);
+      color: #fff;
+      padding: 28px 24px;
+      border-radius: 4px;
+    }
+    .pilotage-freq {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(27,122,61,0.9);
+      margin-bottom: 10px;
+    }
+    .pilotage-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .pilotage-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.55;
+    }
+
+    /* ── DEV CARDS ── */
+    .dev-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .dev-card {
+      background: var(--dark);
+      color: #fff;
+      padding: 24px 20px;
+      border-radius: 4px;
+      border-left: 3px solid var(--green);
+    }
+    .dev-card-num {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .dev-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .dev-card-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    /* ── HERO STAT CELLS ── */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-top: 64px;
+    }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+      margin-top: 60px;
+    }
+    .back-link:hover { color: #fff; }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.3);
+      text-align: center;
+      padding: 48px 24px;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .site-footer a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+    }
+    .site-footer a:hover { color: #fff; }
+
+    /* ── TABLE WRAPPER ── */
+    .table-wrap { overflow-x: auto; margin-bottom: 40px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .risk-matrix-wrap { flex-direction: column; }
+      .bench-grid { grid-template-columns: 1fr; }
+      .bench-grid .bg-head,
+      .bench-grid .bg-cell { border-right: none; }
+      #sidenav { display: none; }
+    }
+  </style>
 </head>
 <body>
-<main id="app">
-  <div id="annexes" class="page active">
-    <button class="back-btn" onclick="window.location='index.html'">← Retour</button>
-    <div class="container">
-      <header>
-        <h1>ArcAURA</h1>
-        <p class="subtitle">Annexes & Documentation · Dossier Technique Complet</p>
-      </header>
 
-      <div class="tabs" id="annexes-tabs">
-        <button class="tab active" data-tab="ann-tech">🔧 Technique</button>
-        <button class="tab" data-tab="ann-juridique">⚖️ Juridique</button>
-        <button class="tab" data-tab="ann-partenaires">🤝 Partenaires</button>
-        <button class="tab" data-tab="ann-docs">📄 Documents</button>
+<div id="pbar"></div>
+
+<!-- SIDE NAV -->
+<nav id="sidenav" aria-label="Sections">
+  <a class="nav-dot active" href="#dp1" data-section="dp1">
+    <span class="nav-dot-line"></span>
+    <span class="nav-dot-label">DP1 Budget</span>
+  </a>
+  <a class="nav-dot" href="#dp2" data-section="dp2">
+    <span class="nav-dot-line"></span>
+    <span class="nav-dot-label">DP2 Planning</span>
+  </a>
+  <a class="nav-dot" href="#dp3" data-section="dp3">
+    <span class="nav-dot-line"></span>
+    <span class="nav-dot-label">DP3 Risques</span>
+  </a>
+  <a class="nav-dot" href="#dp4" data-section="dp4">
+    <span class="nav-dot-line"></span>
+    <span class="nav-dot-label">DP4 Partenaires</span>
+  </a>
+  <a class="nav-dot" href="#dp5" data-section="dp5">
+    <span class="nav-dot-line"></span>
+    <span class="nav-dot-label">DP5 Technologie</span>
+  </a>
+  <a class="nav-dot" href="#dp6" data-section="dp6">
+    <span class="nav-dot-line"></span>
+    <span class="nav-dot-label">DP6 Compétences</span>
+  </a>
+  <a class="nav-dot" href="#dp7" data-section="dp7">
+    <span class="nav-dot-line"></span>
+    <span class="nav-dot-label">DP7 Pilotage</span>
+  </a>
+</nav>
+
+<!-- TOOLTIP -->
+<div id="tooltip"></div>
+
+<!-- ═══════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="hero">
+  <div class="ghost-num" style="font-size:clamp(160px,28vw,400px);right:-0.02em;top:44%;opacity:0.025">A</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">ArcAURA · Dossiers de Présentation DP1–DP7</div>
+    <h1 class="display-title">Annexes<br>& Documentation</h1>
+    <p class="display-sub">17 annexes interactives couvrant le budget, le planning, les risques, les parties prenantes, la technologie, les compétences et le pilotage du projet.</p>
+
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <div class="stat-cell-num">61,35<span class="unit"> M€</span></div>
+        <div class="stat-cell-label">Investissement total</div>
       </div>
-
-      <!-- TECHNIQUE -->
-      <div id="ann-tech" class="content-section active">
-        <div class="info-box">
-          <h3>Spécifications Techniques — Retrofit Électrique</h3>
-          <p>Normes, homologations et contraintes techniques du programme de rétrofit des véhicules thermiques</p>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead><tr>
-              <th>Paramètre</th><th>Spécification</th><th>Norme</th><th>Statut</th>
-            </tr></thead>
-            <tbody>
-              <tr><td>Capacité batterie</td><td>40 kWh LFP</td><td>IEC 62660</td><td style="color:var(--green)">✔ Validé</td></tr>
-              <tr><td>Autonomie réelle</td><td>180–220 km</td><td>WLTP cycle urbain</td><td style="color:var(--green)">✔ Validé</td></tr>
-              <tr><td>Connecteur recharge</td><td>Type 2 AC · CCS DC</td><td>EN 62196-2/3</td><td style="color:var(--green)">✔ Validé</td></tr>
-              <tr><td>Puissance de charge</td><td>11 kW AC / 50 kW DC</td><td>IEC 61851-1</td><td style="color:var(--green)">✔ Validé</td></tr>
-              <tr><td>Homologation retrofit</td><td>Arrêté du 13 mars 2020</td><td>R40 & R100</td><td style="color:var(--green)">✔ Certifié</td></tr>
-              <tr><td>Température exploitation</td><td>-20°C à +45°C</td><td>ISO 12405-4</td><td style="color:var(--green)">✔ Testé</td></tr>
-              <tr><td>BMS embarqué</td><td>CANbus + OBD2</td><td>ISO 15765</td><td style="color:var(--cyan)">→ En cours</td></tr>
-              <tr><td>Cybersécurité véhicule</td><td>WP.29 CSMS</td><td>UN R155</td><td style="color:var(--cyan)">→ Audit Q3 2026</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="info-box" style="margin-top:24px">
-          <h3>Infrastructure de Recharge — Parking A & B</h3>
-          <p>Déploiement pilote Phase 2 : 2 parkings, 50 bornes, capacité 300 véhicules à horizon Phase 3</p>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead><tr>
-              <th>Site</th><th>Nb. Bornes</th><th>Puissance</th><th>Opérateur réseau</th><th>Mise en service</th>
-            </tr></thead>
-            <tbody>
-              <tr><td>Parking A — Centre ville</td><td>20 points</td><td>22 kW AC</td><td>ENEDIS HTA</td><td>M6 (oct. 2026)</td></tr>
-              <tr><td>Parking B — Zone péri-urbaine</td><td>30 points</td><td>22 kW AC + 2×50 kW DC</td><td>ENEDIS HTB</td><td>M7 (nov. 2026)</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="stat-cell">
+        <div class="stat-cell-num">60<span class="unit"> mois</span></div>
+        <div class="stat-cell-label">Durée du projet</div>
       </div>
-
-      <!-- JURIDIQUE -->
-      <div id="ann-juridique" class="content-section">
-        <div class="info-box">
-          <h3>Cadre Juridique & Réglementaire</h3>
-          <p>Textes applicables, autorisations obtenues et conformité réglementaire du projet ArcAURA</p>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead><tr>
-              <th>Document</th><th>Référence</th><th>Date</th><th>Statut</th>
-            </tr></thead>
-            <tbody>
-              <tr><td>Agrément rétrofitteur</td><td>DREAL AURA / MIN-2025-001</td><td>janv. 2025</td><td style="color:var(--green)">✔ Obtenu</td></tr>
-              <tr><td>Convention occupation domaine public</td><td>Délibération CM 2025-047</td><td>mars 2025</td><td style="color:var(--green)">✔ Signé</td></tr>
-              <tr><td>Déclaration IRVE (bornes)</td><td>Art. R353-5 Code de l'énergie</td><td>avr. 2025</td><td style="color:var(--green)">✔ Déposé</td></tr>
-              <tr><td>Acte de société (SAS)</td><td>RCS Lyon B 920 345 678</td><td>févr. 2025</td><td style="color:var(--green)">✔ Immatriculé</td></tr>
-              <tr><td>RGPD — DPA collecte télématique</td><td>CNIL réf. 2025-ARCAURA-01</td><td>mai 2025</td><td style="color:var(--green)">✔ Conforme</td></tr>
-              <tr><td>Contrat-cadre opérateur mobilité</td><td>ARCAURA / SYTRAL Mobilités</td><td>juin 2025</td><td style="color:var(--cyan)">→ Négociation</td></tr>
-              <tr><td>Label ADVENIR (subvention bornes)</td><td>ADEME / Enedis</td><td>sept. 2025</td><td style="color:var(--cyan)">→ Dossier M2</td></tr>
-              <tr><td>Assurance RC Pro flotte</td><td>AXA Entreprises — Police 789-ARCAURA</td><td>oct. 2025</td><td style="color:var(--cyan)">→ Renouvellement M5</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="info-box" style="margin-top:24px">
-          <h3>Conditions Générales d'Utilisation — Pass Arc</h3>
-          <p>Synthèse des CGU applicables aux 4 formules d'abonnement</p>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead><tr>
-              <th>Clause</th><th>Pass Arc</th><th>Pass Arc IN</th><th>Pass Arc OUT</th><th>Pass Arc IN&amp;OUT</th>
-            </tr></thead>
-            <tbody>
-              <tr><td>Abonnement mensuel HT</td><td>20 €</td><td>49 €</td><td>79 €</td><td>120 €</td></tr>
-              <tr><td>Tarif/km HT</td><td>0,20 €/km</td><td>0,12 €/km</td><td>0,10 €/km</td><td>0,08 €/km</td></tr>
-              <tr><td>Zone couverte</td><td>Parking A</td><td>Intra-urbain</td><td>Péri-urbain</td><td>Région AURA</td></tr>
-              <tr><td>Durée d'engagement</td><td>Sans</td><td>3 mois</td><td>6 mois</td><td>12 mois</td></tr>
-              <tr><td>Assurance conducteur</td><td>Incluse</td><td>Incluse</td><td>Incluse</td><td>Incluse</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="stat-cell">
+        <div class="stat-cell-num">11<span class="unit"></span></div>
+        <div class="stat-cell-label">Partenaires</div>
       </div>
-
-      <!-- PARTENAIRES -->
-      <div id="ann-partenaires" class="content-section">
-        <div class="info-box">
-          <h3>Écosystème Partenarial</h3>
-          <p>Partenaires institutionnels, financiers et opérationnels engagés sur le projet ArcAURA</p>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead><tr>
-              <th>Partenaire</th><th>Type</th><th>Rôle</th><th>Engagement (€)</th><th>Phase</th>
-            </tr></thead>
-            <tbody>
-              <tr><td>Région Auvergne-Rhône-Alpes</td><td>Institutionnel</td><td>Subvention investissement + foncier</td><td>1 500 000 €</td><td>P1–P3</td></tr>
-              <tr><td>ADEME</td><td>Financement public</td><td>Aide ADVENIR bornes + bonus rétrofit</td><td>800 000 €</td><td>P2–P3</td></tr>
-              <tr><td>BPI France</td><td>Financement</td><td>Prêt French Fab + garantie</td><td>2 000 000 €</td><td>P2</td></tr>
-              <tr><td>SYTRAL Mobilités</td><td>Opérateur transport</td><td>Intégration multimodale MaaS</td><td>—</td><td>P3–P4</td></tr>
-              <tr><td>Métropole de Lyon</td><td>Collectivité</td><td>Mise à disposition parkings + voirie</td><td>300 000 €</td><td>P2–P3</td></tr>
-              <tr><td>Enedis</td><td>Gestionnaire réseau</td><td>Raccordement IRVE HTB/HTA</td><td>—</td><td>P2</td></tr>
-              <tr><td>Stellantis (Citroën/Renault)</td><td>Industriel</td><td>Fourniture véhicules base + garantie</td><td>—</td><td>P2–P3</td></tr>
-              <tr><td>Groupe Rocher / investisseurs privés</td><td>Capital-risque</td><td>Fonds propres seed round</td><td>500 000 €</td><td>P1</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="stat-cell">
+        <div class="stat-cell-num">300<span class="unit"> VÉ</span></div>
+        <div class="stat-cell-label">Flotte Phase 3</div>
       </div>
-
-      <!-- DOCUMENTS -->
-      <div id="ann-docs" class="content-section">
-        <div class="info-box">
-          <h3>Bibliothèque Documentaire</h3>
-          <p>Ensemble des livrables, études et rapports produits dans le cadre du projet</p>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead><tr>
-              <th>Document</th><th>Type</th><th>Date</th><th>Version</th>
-            </tr></thead>
-            <tbody>
-              <tr><td>Étude de faisabilité technico-économique</td><td>Rapport</td><td>nov. 2024</td><td>v2.1</td></tr>
-              <tr><td>Business Plan 20 ans</td><td>Financier</td><td>janv. 2025</td><td>v3.0</td></tr>
-              <tr><td>Analyse cycle de vie carbone (ACV)</td><td>Environnemental</td><td>mars 2025</td><td>v1.4</td></tr>
-              <tr><td>Plan de déploiement infrastructure IRVE</td><td>Technique</td><td>avr. 2025</td><td>v1.2</td></tr>
-              <tr><td>Dossier de demande de subvention ADEME</td><td>Administratif</td><td>mai 2025</td><td>v1.0</td></tr>
-              <tr><td>Cahier des charges rétrofitteur</td><td>Technique</td><td>juin 2025</td><td>v2.0</td></tr>
-              <tr><td>Rapport d'impact territorial</td><td>Socio-économique</td><td>juil. 2025</td><td>v1.1</td></tr>
-              <tr><td>Présentation investisseurs (pitch deck)</td><td>Commercial</td><td>sept. 2025</td><td>v4.2</td></tr>
-              <tr><td>Contrats-types abonnés Pass Arc</td><td>Juridique</td><td>oct. 2025</td><td>v1.3</td></tr>
-              <tr><td>Plan de gestion des risques</td><td>Gouvernance</td><td>nov. 2025</td><td>v2.0</td></tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="stat-cell">
+        <div class="stat-cell-num">2 500<span class="unit"></span></div>
+        <div class="stat-cell-label">Abonnés cible</div>
       </div>
+      <div class="stat-cell">
+        <div class="stat-cell-num">67<span class="unit"> %</span></div>
+        <div class="stat-cell-label">Financement public</div>
+      </div>
+    </div>
 
+    <a href="index.html" class="back-link">← Retour au tableau de bord</a>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     DP1 — BUDGET & FINANCEMENT
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="dp1">
+  <div class="ghost-num">01</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">DP1 · C3.1 — Plan financier</div>
+    <h2 class="display-title">Budget &<br>Financement</h2>
+    <p class="display-sub">Projection financière sur 60 mois, répartition du financement entre acteurs publics et privés, seuil de rentabilité à M49.</p>
+  </div>
+</section>
+
+<!-- ANN-A1 : Budget par phase -->
+<section class="sec-light" id="ann-a1">
+  <div class="inner">
+    <div class="ann-label">Annexe A1 · Budget par phase</div>
+    <h3 class="sec-title">Budget par phase</h3>
+    <p class="sec-title-sub">Décomposition des 61,35 M€ sur les 4 phases du projet</p>
+
+    <div class="stat-grid-light">
+      <div class="stat-cell-light">
+        <div class="stat-num">103 K€</div>
+        <div class="stat-lbl">Phase 1 · M0–M4</div>
+      </div>
+      <div class="stat-cell-light" style="border-top-color:var(--blue)">
+        <div class="stat-num" style="color:var(--blue)">4,54 M€</div>
+        <div class="stat-lbl">Phase 2 · M5–M8</div>
+      </div>
+      <div class="stat-cell-light" style="border-top-color:#7C3AED">
+        <div class="stat-num" style="color:#7C3AED">39,38 M€</div>
+        <div class="stat-lbl">Phase 3 · M9–M35</div>
+      </div>
+      <div class="stat-cell-light" style="border-top-color:var(--amber)">
+        <div class="stat-num" style="color:var(--amber)">17,33 M€</div>
+        <div class="stat-lbl">Phase 4 · M36–M59</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="ann-table">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Période</th>
+            <th>Budget</th>
+            <th>% total</th>
+            <th>Objectif clé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>P1</strong> Structuration territoriale</td>
+            <td>M0 – M4</td>
+            <td><strong>103 000,00 €</strong></td>
+            <td>0,2 %</td>
+            <td>Signature 11 partenaires, bouclage financement 67 %</td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong> Industrialisation pilote</td>
+            <td>M5 – M8</td>
+            <td><strong>4 540 000,00 €</strong></td>
+            <td>7,4 %</td>
+            <td>50 VÉ retrofités, 2 parkings opérationnels, homologation UTAC</td>
+          </tr>
+          <tr>
+            <td><strong>P3</strong> Déploiement régional</td>
+            <td>M9 – M35</td>
+            <td><strong>39 380 000,00 €</strong></td>
+            <td>64,2 %</td>
+            <td>300 VÉ, 15 sites AURA, 2 500 abonnés</td>
+          </tr>
+          <tr>
+            <td style="padding-left:24px">↳ Vague 1 Est (7 sites)</td>
+            <td>M9 – M20</td>
+            <td>11 500 000,00 €</td>
+            <td>—</td>
+            <td>Villeurbanne, Vénissieux, Saint-Priest, Bron, Décines, Chassieu, Vaulx</td>
+          </tr>
+          <tr>
+            <td style="padding-left:24px">↳ Vague 2 Ouest (5 sites)</td>
+            <td>M21 – M32</td>
+            <td>14 500 000,00 €</td>
+            <td>—</td>
+            <td>Givors, Oullins, Caluire, Tassin, Saint-Genis-Laval</td>
+          </tr>
+          <tr>
+            <td style="padding-left:24px">↳ Vague 3 Grenoble (3 sites)</td>
+            <td>M33 – M35</td>
+            <td>13 380 000,00 €</td>
+            <td>—</td>
+            <td>Fontaine, Échirolles, Meylan</td>
+          </tr>
+          <tr>
+            <td><strong>P4</strong> Pérennisation nationale</td>
+            <td>M36 – M59</td>
+            <td><strong>17 330 000,00 €</strong></td>
+            <td>28,2 %</td>
+            <td>Holding Jean Lain / NovumTech, 2–3 licences régionales</td>
+          </tr>
+          <tr style="background:var(--green-light)">
+            <td colspan="2"><strong>TOTAL</strong></td>
+            <td><strong>61 350 000,00 €</strong></td>
+            <td><strong>100 %</strong></td>
+            <td>Seuil rentabilité M49 · Résultat cumulé 5 ans : +2,34 M€</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</main>
+</section>
 
-<script type="module">
-  import { attachTabs } from './js/core/tabs.js';
-  attachTabs('annexes');
+<!-- ANN-B1 : Répartition du financement -->
+<section class="sec-white" id="ann-b1">
+  <div class="inner">
+    <div class="ann-label">Annexe B1 · Répartition du financement</div>
+    <h3 class="sec-title">Sources de financement</h3>
+    <p class="sec-title-sub">67 % financement public — 33 % privé</p>
+
+    <div class="fin-bar-wrap">
+      <div class="fin-bar">
+        <div class="fin-seg" style="background:#1B7A3D;flex:43" title="Région AURA 43%"></div>
+        <div class="fin-seg" style="background:#2563EB;flex:25" title="Jean Lain 25%"></div>
+        <div class="fin-seg" style="background:#7C3AED;flex:24" title="15 Communes 24%"></div>
+        <div class="fin-seg" style="background:#D97706;flex:5" title="ADEME/France2030/BPI 5%"></div>
+        <div class="fin-seg" style="background:#64748B;flex:3" title="Fonds propres 3%"></div>
+      </div>
+      <div class="fin-legend">
+        <div class="fin-leg-item"><div class="fin-leg-dot" style="background:#1B7A3D"></div>Région AURA — 43 %</div>
+        <div class="fin-leg-item"><div class="fin-leg-dot" style="background:#2563EB"></div>Jean Lain Mobilités — 25 %</div>
+        <div class="fin-leg-item"><div class="fin-leg-dot" style="background:#7C3AED"></div>15 communes partenaires — 24 %</div>
+        <div class="fin-leg-item"><div class="fin-leg-dot" style="background:#D97706"></div>ADEME / France 2030 / BPI — 5 %</div>
+        <div class="fin-leg-item"><div class="fin-leg-dot" style="background:#64748B"></div>Fonds propres seed — 3 %</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="ann-table ann-table-light">
+        <thead>
+          <tr>
+            <th>Financeur</th>
+            <th>Type</th>
+            <th>Montant estimé</th>
+            <th>%</th>
+            <th>Phase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Région Auvergne-Rhône-Alpes</strong></td>
+            <td>Subvention publique</td>
+            <td>26 380 500,00 €</td>
+            <td>43 %</td>
+            <td>P1 → P4</td>
+          </tr>
+          <tr>
+            <td><strong>Jean Lain Mobilités</strong></td>
+            <td>Partenariat industriel</td>
+            <td>15 337 500,00 €</td>
+            <td>25 %</td>
+            <td>P2 → P4</td>
+          </tr>
+          <tr>
+            <td><strong>15 communes partenaires</strong></td>
+            <td>Mise à disposition foncier + convention</td>
+            <td>14 724 000,00 €</td>
+            <td>24 %</td>
+            <td>P2 → P3</td>
+          </tr>
+          <tr>
+            <td><strong>ADEME / France 2030 / BPI France</strong></td>
+            <td>Subventions &amp; prêt French Fab</td>
+            <td>3 067 500,00 €</td>
+            <td>5 %</td>
+            <td>P2 → P3</td>
+          </tr>
+          <tr>
+            <td><strong>Fonds propres / seed investors</strong></td>
+            <td>Capital-risque</td>
+            <td>1 840 500,00 €</td>
+            <td>3 %</td>
+            <td>P1</td>
+          </tr>
+          <tr style="background:var(--green-light)">
+            <td colspan="2"><strong>TOTAL</strong></td>
+            <td><strong>61 350 000,00 €</strong></td>
+            <td><strong>100 %</strong></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     DP2 — PLANNING & JALONS
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="dp2">
+  <div class="ghost-num">02</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">DP2 · C3.2 — Conduite de projet</div>
+    <h2 class="display-title">Planning<br>& Jalons</h2>
+    <p class="display-sub">Quatre phases sur 60 mois avec quatre jalons GO/NO-GO binaires déclenchant ou bloquant la suite du déploiement.</p>
+  </div>
+</section>
+
+<!-- ANN-A2 : Timeline M0–M60 -->
+<section class="sec-light" id="ann-a2">
+  <div class="inner">
+    <div class="ann-label">Annexe A2 · Timeline M0–M60</div>
+    <h3 class="sec-title">Chronologie du projet</h3>
+    <p class="sec-title-sub">60 mois de M0 (lancement) à M60 (validation nationale)</p>
+
+    <div class="timeline-track">
+      <div class="tl-phase tl-p1">P1</div>
+      <div class="tl-phase tl-p2">P2</div>
+      <div class="tl-phase tl-p3">Phase 3 — Déploiement régional</div>
+      <div class="tl-phase tl-p4">Phase 4 — Pérennisation</div>
+    </div>
+
+    <div class="jalon-grid">
+      <div class="jalon-card">
+        <div class="jalon-mois">M4 · Jalon 1</div>
+        <div class="jalon-title">GO/NO-GO Structuration</div>
+        <div class="jalon-desc">11 accords partenaires signés + 67 % financement bouclé + au moins un site foncier sécurisé</div>
+      </div>
+      <div class="jalon-card" style="border-left-color:var(--blue)">
+        <div class="jalon-mois" style="color:var(--blue)">M9 · Jalon 2</div>
+        <div class="jalon-title">GO/NO-GO Pilote</div>
+        <div class="jalon-desc">Homologation UTAC lot 1 obtenue + 500 essais utilisateurs réalisés + satisfaction ≥ 3,8/5</div>
+      </div>
+      <div class="jalon-card" style="border-left-color:#7C3AED">
+        <div class="jalon-mois" style="color:#7C3AED">M12 · Jalon 3</div>
+        <div class="jalon-title">GO/NO-GO Opérationnel</div>
+        <div class="jalon-desc">85 % autosuffisance énergétique + 60 % taux d'utilisation flotte + équilibre opérationnel démontré</div>
+      </div>
+      <div class="jalon-card" style="border-left-color:var(--amber)">
+        <div class="jalon-mois" style="color:var(--amber)">M60 · Jalon 4</div>
+        <div class="jalon-title">GO/NO-GO Franchise</div>
+        <div class="jalon-desc">Holding Jean Lain / NovumTech créée + 2 à 3 contrats de licence régionaux signés (Occitanie, PACA…)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANN-B2 : Jalons détaillés -->
+<section class="sec-white" id="ann-b2">
+  <div class="inner">
+    <div class="ann-label">Annexe B2 · Jalons détaillés</div>
+    <h3 class="sec-title">Principaux jalons opérationnels</h3>
+    <p class="sec-title-sub">Points de contrôle intermédiaires par phase</p>
+
+    <div class="table-wrap">
+      <table class="ann-table ann-table-light">
+        <thead>
+          <tr>
+            <th>Mois</th>
+            <th>Jalon</th>
+            <th>Critère</th>
+            <th>Phase</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>M0</td><td>Lancement Phase 1 — constitution COPIL</td><td>COPIL constitué, charte signée</td><td>P1</td><td><span class="badge badge-blue">Planifié</span></td></tr>
+          <tr><td>M1</td><td>Audit capacitaire NovumTech</td><td>Capacité 50 veh/phase validée</td><td>P1</td><td><span class="badge badge-blue">Planifié</span></td></tr>
+          <tr><td>M2</td><td>Recrutement consultant UTAC</td><td>RDV UTAC avant dépôt officiel</td><td>P1</td><td><span class="badge badge-blue">Planifié</span></td></tr>
+          <tr><td>M4</td><td><strong>GO/NO-GO Phase 1</strong></td><td>11 signatures + 67 % financement + 1 site sécurisé</td><td>P1</td><td><span class="badge badge-amber">Décisif</span></td></tr>
+          <tr><td>M7</td><td>Homologation UTAC lot 1</td><td>Obtenue avant M7, date butoir 22 juil.</td><td>P2</td><td><span class="badge badge-blue">Planifié</span></td></tr>
+          <tr><td>M8</td><td>Homologation UTAC 6 lots (95 000 €)</td><td>Tous lots homologués</td><td>P2</td><td><span class="badge badge-blue">Planifié</span></td></tr>
+          <tr><td>M9</td><td><strong>GO/NO-GO Pilote</strong></td><td>UTAC + 500 essais + ≥ 3,8/5</td><td>P2</td><td><span class="badge badge-amber">Décisif</span></td></tr>
+          <tr><td>M12</td><td><strong>GO/NO-GO Opérationnel</strong></td><td>85 % solaire + 60 % utilisation</td><td>P2</td><td><span class="badge badge-amber">Décisif</span></td></tr>
+          <tr><td>M35</td><td><strong>GO/NO-GO Régional</strong></td><td>2 500 abonnés + ROI 3 ans confirmé</td><td>P3</td><td><span class="badge badge-amber">Décisif</span></td></tr>
+          <tr><td>M49</td><td>Seuil de rentabilité</td><td>Cumul négatif max 43,5 M€ commence à remonter</td><td>P4</td><td><span class="badge badge-blue">Planifié</span></td></tr>
+          <tr><td>M60</td><td><strong>GO/NO-GO Franchise nationale</strong></td><td>Holding + 2–3 licences régionales signées</td><td>P4</td><td><span class="badge badge-amber">Décisif</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     DP3 — GESTION DES RISQUES
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="dp3">
+  <div class="ghost-num">03</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">DP3 · C3.3 — Maîtrise des risques</div>
+    <h2 class="display-title">Gestion<br>des Risques</h2>
+    <p class="display-sub">8 risques identifiés positionnés sur une matrice Probabilité × Impact. Plans de traitement actifs avec seuils d'arrêt binaires.</p>
+  </div>
+</section>
+
+<!-- ANN-A3 : Matrice des risques -->
+<section class="sec-light" id="ann-a3">
+  <div class="inner">
+    <div class="ann-label">Annexe A3 · Matrice des risques</div>
+    <h3 class="sec-title">Matrice Probabilité × Impact</h3>
+    <p class="sec-title-sub">8 risques majeurs — survolez les cercles pour le détail</p>
+
+    <div class="risk-matrix-wrap">
+      <!-- matrix: 5 cols (axis + 4 impact) × 5 rows (4 proba + axis) -->
+      <div class="risk-matrix">
+        <!-- Row 4 — P=Forte -->
+        <div class="rm-axis-label vert" style="grid-row:1;grid-column:1;font-size:9px">Forte</div>
+        <div class="rm-cell rm-p4i1" style="grid-row:1;grid-column:2"></div>
+        <div class="rm-cell rm-p4i2" style="grid-row:1;grid-column:3">
+          <div class="risk-token" data-tip="Résistance équipes Jean Lain&#10;Changement culturel majeur&#10;Plan : ambassadeurs métier + mentorat 2 mois" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R7</div>
+        </div>
+        <div class="rm-cell rm-p4i3" style="grid-row:1;grid-column:4">
+          <div class="risk-token" data-tip="Saturation NovumTech&#10;Passage 50→300 véhicules&#10;Plan : 2e ligne production P4, contrat volume garanti" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R2</div>
+        </div>
+        <div class="rm-cell rm-p4i4" style="grid-row:1;grid-column:5">
+          <div class="risk-token" data-tip="Retard homologation UTAC&#10;68 % des dossiers prennent du retard&#10;Plan : consultant M2, date butoir 22 juil., homologateur tiers" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R1</div>
+        </div>
+
+        <!-- Row 3 — P=Moyenne haute -->
+        <div class="rm-axis-label vert" style="grid-row:2;grid-column:1;font-size:9px">Moy+</div>
+        <div class="rm-cell rm-p3i1" style="grid-row:2;grid-column:2"></div>
+        <div class="rm-cell rm-p3i2" style="grid-row:2;grid-column:3"></div>
+        <div class="rm-cell rm-p3i3" style="grid-row:2;grid-column:4">
+          <div class="risk-token" data-tip="Refus communes / négociation foncière&#10;Traitement en 20 pour retenir 15&#10;Plan : sites de repli identifiés P1, seuil alerte 90 jours" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R3</div>
+        </div>
+        <div class="rm-cell rm-p3i4" style="grid-row:2;grid-column:5">
+          <div class="risk-token" data-tip="Dérive budgétaire&#10;Seuil alerte +8 %, seuil critique +20 %&#10;Plan : audit interne → suspension forcée" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R4</div>
+        </div>
+
+        <!-- Row 2 — P=Moyenne -->
+        <div class="rm-axis-label vert" style="grid-row:3;grid-column:1;font-size:9px">Moy</div>
+        <div class="rm-cell rm-p2i1" style="grid-row:3;grid-column:2"></div>
+        <div class="rm-cell rm-p2i2" style="grid-row:3;grid-column:3">
+          <div class="risk-token" data-tip="Accélération concurrents (Citiz)&#10;Lancement offre agressive en AURA&#10;Plan : accélération calendrier Phase 3, veille trimestrielle" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R6</div>
+        </div>
+        <div class="rm-cell rm-p2i3" style="grid-row:3;grid-column:4">
+          <div class="risk-token" data-tip="Défaillance NovumTech (fragilité financière)&#10;ArcAURA = +70 % de leur CA&#10;Plan : ISO 14001 sous 18 mois, alternatives TOLV/Qinomic identifiées" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R5</div>
+        </div>
+        <div class="rm-cell rm-p2i4" style="grid-row:3;grid-column:5"></div>
+
+        <!-- Row 1 — P=Faible -->
+        <div class="rm-axis-label vert" style="grid-row:4;grid-column:1;font-size:9px">Faible</div>
+        <div class="rm-cell rm-p1i1" style="grid-row:4;grid-column:2">
+          <div class="risk-token" style="background:rgba(0,0,0,0.35);color:#111" data-tip="Non-conformité RGPD (télématique)&#10;3 types de données : profil, usage, véhicule&#10;Plan : consentement explicite, chiffrement E2E, audit annuel" onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()">R8</div>
+        </div>
+        <div class="rm-cell rm-p1i2" style="grid-row:4;grid-column:3"></div>
+        <div class="rm-cell rm-p1i3" style="grid-row:4;grid-column:4"></div>
+        <div class="rm-cell rm-p1i4" style="grid-row:4;grid-column:5"></div>
+
+        <!-- Bottom axis labels -->
+        <div style="grid-row:5;grid-column:1"></div>
+        <div class="rm-axis-label" style="grid-row:5;grid-column:2;font-size:9px">Faible</div>
+        <div class="rm-axis-label" style="grid-row:5;grid-column:3;font-size:9px">Moyen</div>
+        <div class="rm-axis-label" style="grid-row:5;grid-column:4;font-size:9px">Fort</div>
+        <div class="rm-axis-label" style="grid-row:5;grid-column:5;font-size:9px">Critique</div>
+      </div>
+
+      <!-- Legend -->
+      <div class="risk-legend">
+        <p style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3);margin-bottom:14px">Légende</p>
+        <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#DC2626"></div>Critique — action immédiate</div>
+        <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#F97316"></div>Élevé — plan actif requis</div>
+        <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#FBBF24"></div>Modéré — surveillance renforcée</div>
+        <div class="risk-legend-item"><div class="risk-legend-dot" style="background:#86EFAC"></div>Faible — veille régulière</div>
+        <br>
+        <p style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--t3);margin-bottom:14px">Seuils de défaut retrofit</p>
+        <div class="risk-legend-item" style="color:var(--green)">✓ Max acceptable : 2 % (1/50 veh.)</div>
+        <div class="risk-legend-item" style="color:var(--amber)">⚠ Suspension production : 4 %</div>
+        <div class="risk-legend-item" style="color:var(--red)">✕ Arrêt total + audit : 6 %</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANN-B3 : Plans de traitement -->
+<section class="sec-white" id="ann-b3">
+  <div class="inner">
+    <div class="ann-label">Annexe B3 · Plans de traitement</div>
+    <h3 class="sec-title">Plans de mitigation</h3>
+    <p class="sec-title-sub">Actions préventives et critères d'arrêt par risque</p>
+
+    <div class="table-wrap">
+      <table class="ann-table ann-table-light">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Risque</th>
+            <th>Probabilité</th>
+            <th>Impact</th>
+            <th>Action préventive</th>
+            <th>Critère d'arrêt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>R1</td>
+            <td><strong>Retard homologation UTAC</strong></td>
+            <td><span class="badge badge-red">Forte (68 %)</span></td>
+            <td><span class="badge badge-red">Critique</span></td>
+            <td>Consultant recruté M2 (18 000 €), RDV UTAC avant dépôt, créneaux test réservés</td>
+            <td>+3 mois → pause ou abandon</td>
+          </tr>
+          <tr>
+            <td>R2</td>
+            <td><strong>Saturation NovumTech</strong></td>
+            <td><span class="badge badge-red">Forte</span></td>
+            <td><span class="badge badge-amber">Élevé</span></td>
+            <td>Production découpée en 6 lots Phase 2, 2e ligne production Phase 4 (900 K€)</td>
+            <td>Délai +2 mois → activation alternative TOLV/Qinomic</td>
+          </tr>
+          <tr>
+            <td>R3</td>
+            <td><strong>Refus communes / foncier</strong></td>
+            <td><span class="badge badge-amber">Moyenne</span></td>
+            <td><span class="badge badge-amber">Élevé</span></td>
+            <td>Négocier avec 20 communes pour en retenir 15, sites de repli identifiés P1</td>
+            <td>1 partenaire bloque >90 jours → abandon de ce site</td>
+          </tr>
+          <tr>
+            <td>R4</td>
+            <td><strong>Dérive budgétaire</strong></td>
+            <td><span class="badge badge-amber">Moyenne</span></td>
+            <td><span class="badge badge-red">Critique</span></td>
+            <td>Audit interne trimestriel, seuil alerte +8 %, tableau de bord COPIL hebdomadaire</td>
+            <td>+20 % → suspension forcée + audit externe</td>
+          </tr>
+          <tr>
+            <td>R5</td>
+            <td><strong>Défaillance NovumTech</strong></td>
+            <td><span class="badge badge-low">Faible</span></td>
+            <td><span class="badge badge-amber">Élevé</span></td>
+            <td>Accompagnement ISO 14001 sous 18 mois, indicateurs financiers trimestriels</td>
+            <td>Concentration CA >80 % → diversification forcée</td>
+          </tr>
+          <tr>
+            <td>R6</td>
+            <td><strong>Accélération concurrents</strong></td>
+            <td><span class="badge badge-amber">Moyenne</span></td>
+            <td><span class="badge badge-amber">Modéré</span></td>
+            <td>Veille trimestrielle marché, accélération Phase 3 si signal détecté</td>
+            <td>Citiz lève >5 M€ → réunion stratégique COPIL</td>
+          </tr>
+          <tr>
+            <td>R7</td>
+            <td><strong>Résistance équipes Jean Lain</strong></td>
+            <td><span class="badge badge-red">Forte</span></td>
+            <td><span class="badge badge-amber">Modéré</span></td>
+            <td>Ambassadeurs métier DP6, mentorat 2 mois, formation 2 jours Galadrim</td>
+            <td>Taux adoption <50 % à M12 → restructuration plan formation</td>
+          </tr>
+          <tr>
+            <td>R8</td>
+            <td><strong>Non-conformité RGPD</strong></td>
+            <td><span class="badge badge-low">Faible</span></td>
+            <td><span class="badge badge-low">Faible</span></td>
+            <td>Consentement explicite granulaire, chiffrement E2E, audit cybersécurité annuel</td>
+            <td>Mise en demeure CNIL → suspension collecte + DPO externe</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     DP4 — PARTIES PRENANTES
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="dp4">
+  <div class="ghost-num">04</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">DP4 · C3.4 — Coordination des ressources</div>
+    <h2 class="display-title">Parties<br>Prenantes</h2>
+    <p class="display-sub">11 partenaires cartographiés par influence, impact et rôle. Gouvernance COPIL bimestriel + 4 sous-comités + canal d'escalade 48 h.</p>
+  </div>
+</section>
+
+<!-- ANN-DP4 : Cartographie complète -->
+<section class="sec-light" id="ann-dp4">
+  <div class="inner">
+    <div class="ann-label">Annexe DP4 · Cartographie des partenaires</div>
+    <h3 class="sec-title">Les 11 partenaires</h3>
+    <p class="sec-title-sub">80 % du risque opérationnel porté par les acteurs internes (Jean Lain + NovumTech)</p>
+
+    <div class="table-wrap">
+      <table class="ann-table">
+        <thead>
+          <tr>
+            <th>Partenaire</th>
+            <th>Catégorie</th>
+            <th>Rôle principal</th>
+            <th>Influence</th>
+            <th>Impact</th>
+            <th>Phase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Jean Lain Mobilités</strong></td>
+            <td><span class="badge badge-red">Interne</span></td>
+            <td>Fourniture VÉ d'occasion, logistique inter-concessions, commercial, coordination opérationnelle</td>
+            <td><span class="badge badge-high">Forte</span></td>
+            <td><span class="badge badge-red">Critique</span></td>
+            <td>P1–P4</td>
+          </tr>
+          <tr>
+            <td><strong>NovumTech</strong></td>
+            <td><span class="badge badge-red">Interne</span></td>
+            <td>Retrofit électrique (Clio, C2, 206), homologation UTAC/DREAL, maintenance prédictive IoT</td>
+            <td><span class="badge badge-high">Forte</span></td>
+            <td><span class="badge badge-red">Critique</span></td>
+            <td>P1–P4</td>
+          </tr>
+          <tr>
+            <td><strong>Région AURA</strong></td>
+            <td><span class="badge badge-blue">Déclencheur</span></td>
+            <td>Financement 43 % du projet, coordination territoriale, accès fonciers</td>
+            <td><span class="badge badge-high">Forte</span></td>
+            <td><span class="badge badge-red">Déclencheur</span></td>
+            <td>P1–P4</td>
+          </tr>
+          <tr>
+            <td><strong>15 communes partenaires</strong></td>
+            <td><span class="badge badge-blue">Déclencheur</span></td>
+            <td>Négociations foncières, conventions d'occupation domaine public, facilitation administrative</td>
+            <td><span class="badge badge-high">Forte</span></td>
+            <td><span class="badge badge-red">Déclencheur</span></td>
+            <td>P2–P3</td>
+          </tr>
+          <tr>
+            <td><strong>ADEME / France 2030 / BPI France</strong></td>
+            <td><span class="badge badge-blue">Déclencheur</span></td>
+            <td>Subventions ADVENIR bornes + bonus retrofit + prêt French Fab (3,2 M€)</td>
+            <td><span class="badge badge-high">Forte</span></td>
+            <td><span class="badge badge-red">Déclencheur</span></td>
+            <td>P2–P3</td>
+          </tr>
+          <tr>
+            <td><strong>Galadrim</strong></td>
+            <td><span class="badge badge-gray">Opérationnel</span></td>
+            <td>Développement app ArcAURA Connect (mobile, backend, IoT, maintenance prédictive), entreprise auvergnate</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+            <td><span class="badge badge-high">Fort</span></td>
+            <td>P1–P4</td>
+          </tr>
+          <tr>
+            <td><strong>Eiffage Construction</strong></td>
+            <td><span class="badge badge-gray">Opérationnel</span></td>
+            <td>Bâtiment et aménagement des 15 parkings solaires</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+            <td><span class="badge badge-high">Fort</span></td>
+            <td>P2–P3</td>
+          </tr>
+          <tr>
+            <td><strong>EDF</strong></td>
+            <td><span class="badge badge-gray">Opérationnel</span></td>
+            <td>Raccordement électrique, supervision énergétique 5 100 MWh/an en Phase 3</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+            <td><span class="badge badge-high">Fort</span></td>
+            <td>P2–P3</td>
+          </tr>
+          <tr>
+            <td><strong>Schneider Electric</strong></td>
+            <td><span class="badge badge-gray">Opérationnel</span></td>
+            <td>200 bornes de recharge connectées (22 kW AC + 50 kW DC), intégration IoT native</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+            <td><span class="badge badge-high">Fort</span></td>
+            <td>P2–P3</td>
+          </tr>
+          <tr>
+            <td><strong>SYTRAL / TCL · SNCF TER</strong></td>
+            <td><span class="badge badge-gray">Bénéficiaire</span></td>
+            <td>Intermodalité — intégration pass unique dans l'abonnement ArcAURA</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+            <td><span class="badge badge-high">Fort</span></td>
+            <td>P3–P4</td>
+          </tr>
+          <tr>
+            <td><strong>Excoffier Recyclage</strong></td>
+            <td><span class="badge badge-gray">Opérationnel</span></td>
+            <td>Valorisation composants thermiques, économie circulaire régionale AURA</td>
+            <td><span class="badge badge-low">Faible</span></td>
+            <td><span class="badge badge-med">Moyen</span></td>
+            <td>P2–P4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:#fff;border:1px solid var(--bdr);border-left:4px solid var(--amber);padding:20px 24px;margin-bottom:32px">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);margin-bottom:6px">Point de vigilance — NovumTech</p>
+      <p style="font-size:14px;color:var(--t2);line-height:1.6">ArcAURA représente +70 % du CA de NovumTech. Aucune certification ISO 14001 ni B Corp. Dépendance lithium/cobalt sans sourcing certifié. <strong>Parade contractuelle</strong> : accompagnement ISO 14001 sous 18 mois + indicateurs environnementaux trimestriels + alternatives identifiées (TOLV Systems, Qinomic).</p>
+    </div>
+
+    <div style="background:#fff;border:1px solid var(--bdr);border-left:4px solid var(--red);padding:20px 24px">
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px">Acteur manquant — à intégrer avant M7</p>
+      <p style="font-size:14px;color:var(--t2);line-height:1.6">Un <strong>assureur spécialisé véhicules retrofités</strong> (RC batteries et systèmes électriques) est absent du consortium. Sans lui, blocage potentiel à l'homologation UTAC.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     DP5 — TECHNOLOGIE & PERFORMANCE
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="dp5">
+  <div class="ghost-num">05</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">DP5 · C3.5 — Solution digitale</div>
+    <h2 class="display-title">Technologie<br>& Performance</h2>
+    <p class="display-sub">Application Galadrim sur-mesure, maintenance prédictive IoT, benchmark vs solution marché Vulog, 7 indicateurs de performance clés.</p>
+  </div>
+</section>
+
+<!-- ANN-A5 : Benchmark Galadrim vs Vulog -->
+<section class="sec-light" id="ann-a5">
+  <div class="inner">
+    <div class="ann-label">Annexe A5 · Benchmark plateforme numérique</div>
+    <h3 class="sec-title">Galadrim vs Vulog</h3>
+    <p class="sec-title-sub">Solution sur-mesure vs solution marché — les cellules vertes indiquent l'avantage Galadrim</p>
+
+    <div class="table-wrap">
+      <div class="bench-grid">
+        <div class="bg-head">Critère</div>
+        <div class="bg-head" style="background:var(--green)">Galadrim (retenu)</div>
+        <div class="bg-head">Vulog (alternative)</div>
+
+        <div class="bg-cell">Intégration Schneider / NovumTech</div>
+        <div class="bg-cell win">Native, dès la conception</div>
+        <div class="bg-cell">Développement supplémentaire requis</div>
+
+        <div class="bg-cell">Maintenance prédictive</div>
+        <div class="bg-cell win">Algorithmes sur-mesure retrofit</div>
+        <div class="bg-cell">Générique, non adapté aux VÉ retrofités</div>
+
+        <div class="bg-cell">Coût initial</div>
+        <div class="bg-cell">Élevé (inclus budget phase 1–3)</div>
+        <div class="bg-cell win">Modéré (licence + intégration)</div>
+
+        <div class="bg-cell">Coût récurrent</div>
+        <div class="bg-cell win">Faible (hébergement + maintenance)</div>
+        <div class="bg-cell">Élevé (licence mensuelle par véhicule)</div>
+
+        <div class="bg-cell">Scalabilité nationale</div>
+        <div class="bg-cell win">Maîtrisée, code propriétaire ArcAURA</div>
+        <div class="bg-cell">Dépendance fournisseur, négociation par extension</div>
+
+        <div class="bg-cell">Ancrage territorial AURA</div>
+        <div class="bg-cell win">Entreprise auvergnate, retombées locales</div>
+        <div class="bg-cell">Siège hors région, pas d'ancrage local</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px">
+      <div style="background:#fff;border:1px solid var(--bdr);padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--green)">70 %</div>
+        <div style="font-size:12px;color:var(--t2);text-transform:uppercase;letter-spacing:0.06em">Réduction gestion opérationnelle</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--bdr);padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--green)">0</div>
+        <div style="font-size:12px;color:var(--t2);text-transform:uppercase;letter-spacing:0.06em">Double réservation</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--bdr);padding:20px;text-align:center">
+        <div style="font-size:28px;font-weight:800;color:var(--green)">×6</div>
+        <div style="font-size:12px;color:var(--t2);text-transform:uppercase;letter-spacing:0.06em">Capacité flotte sans recrutement prop.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANN-B5 : KPIs de performance -->
+<section class="sec-white" id="ann-b5">
+  <div class="inner">
+    <div class="ann-label">Annexe B5 · Indicateurs de performance</div>
+    <h3 class="sec-title">7 KPIs opérationnels</h3>
+    <p class="sec-title-sub">Cibles pilote (Phase 2) et cibles Phase 3 avec fréquence de mesure</p>
+
+    <div class="table-wrap">
+      <table class="ann-table ann-table-light">
+        <thead>
+          <tr>
+            <th>Indicateur</th>
+            <th>Cible Phase 2 (pilote)</th>
+            <th>Cible Phase 3</th>
+            <th>Fréquence</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Taux d'utilisation flotte</strong></td>
+            <td><span class="badge badge-amber">60 %</span></td>
+            <td><span class="badge badge-green">85 %</span></td>
+            <td>Hebdomadaire</td>
+            <td>Dashboard Galadrim</td>
+          </tr>
+          <tr>
+            <td><strong>Satisfaction utilisateur</strong></td>
+            <td><span class="badge badge-amber">3,8 / 5</span></td>
+            <td><span class="badge badge-green">4,0 / 5</span></td>
+            <td>Mensuelle</td>
+            <td>App ArcAURA</td>
+          </tr>
+          <tr>
+            <td><strong>Pannes détectées avant immobilisation</strong></td>
+            <td><span class="badge badge-amber">50 %</span></td>
+            <td><span class="badge badge-green">80 %</span></td>
+            <td>Mensuelle</td>
+            <td>IoT NovumTech</td>
+          </tr>
+          <tr>
+            <td><strong>Temps moyen de réservation</strong></td>
+            <td><span class="badge badge-amber">&lt; 3 min</span></td>
+            <td><span class="badge badge-green">&lt; 2 min</span></td>
+            <td>Hebdomadaire</td>
+            <td>App ArcAURA</td>
+          </tr>
+          <tr>
+            <td><strong>Disponibilité bornes de recharge</strong></td>
+            <td><span class="badge badge-amber">92 %</span></td>
+            <td><span class="badge badge-green">95 %</span></td>
+            <td>Quotidienne</td>
+            <td>Schneider supervision</td>
+          </tr>
+          <tr>
+            <td><strong>Nombre d'abonnés actifs</strong></td>
+            <td><span class="badge badge-amber">210</span></td>
+            <td><span class="badge badge-green">2 500</span></td>
+            <td>Mensuelle</td>
+            <td>HubSpot CRM</td>
+          </tr>
+          <tr>
+            <td><strong>NPS (Net Promoter Score)</strong></td>
+            <td>—</td>
+            <td><span class="badge badge-green">&gt; 45</span></td>
+            <td>Trimestriel</td>
+            <td>Enquête in-app</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     DP6 — COMPÉTENCES & MONTÉE EN CHARGE
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="dp6">
+  <div class="ghost-num">06</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">DP6 · C3.6 — Développer les compétences</div>
+    <h2 class="display-title">Compétences<br>& Montée en charge</h2>
+    <p class="display-sub">3 métiers impactés par la transition numérique. Budget formation 45 000 €. 3 priorités de compétences avec objectifs mesurables.</p>
+  </div>
+</section>
+
+<!-- ANN-A6 : Impacts avant/après -->
+<section class="sec-light" id="ann-a6">
+  <div class="inner">
+    <div class="ann-label">Annexe A6 · Impacts humains — avant / après</div>
+    <h3 class="sec-title">3 métiers transformés</h3>
+    <p class="sec-title-sub">Changements induits par la digitalisation Galadrim sur les pratiques quotidiennes</p>
+
+    <div class="table-wrap">
+      <table class="ann-table">
+        <thead>
+          <tr>
+            <th>Métier</th>
+            <th>Situation AVANT</th>
+            <th>Situation APRÈS</th>
+            <th>Difficulté principale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Technicien retrofit NovumTech</strong></td>
+            <td>Checklist papier 100 points. Appel téléphonique pour signaler véhicule prêt. Suivi maintenance manuel (carnet/Excel).</td>
+            <td>Tablette avec validation photo, horodatage, signature électronique. Ordres maintenance automatiques via IoT. Blocage livraison si point critique manquant.</td>
+            <td><span class="badge badge-high">Résistance interface numérique</span> Mécaniciens sans expérience numérique, sentiment de surveillance.</td>
+          </tr>
+          <tr>
+            <td><strong>Conseiller après-vente Jean Lain</strong></td>
+            <td>Relation client physique. Prise RDV téléphonique. Zéro outil CRM. Zéro culture marketing digital.</td>
+            <td>Chargé de suivi client et marketing digital. CRM HubSpot, campagnes emailing Brevo, segmentation offres 149/249/349 €, analyse données d'usage.</td>
+            <td><span class="badge badge-high">Absence TOTALE compétences digital</span> Changement culturel majeur. Risque de rejet élevé.</td>
+          </tr>
+          <tr>
+            <td><strong>Coordinateur logistique Jean Lain</strong></td>
+            <td>Gestion flux inter-concessions. Excel, bons papier, téléphone atelier. Véhicule = objet statique.</td>
+            <td>Pilote dashboard Galadrim temps réel. 50 puis 300 véhicules partagés sur 15 sites. Coordination rotation et maintenance.</td>
+            <td><span class="badge badge-high">Changement mental profond</span> Gérer des flux partagés en temps réel, pas des voitures statiques.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ANN-B6 : Cartographie compétences -->
+<section class="sec-white" id="ann-b6">
+  <div class="inner">
+    <div class="ann-label">Annexe B6 · Cartographie des compétences</div>
+    <h3 class="sec-title">Compétences actuelles vs à développer</h3>
+    <p class="sec-title-sub">Matrice par métier avec priorité d'action</p>
+
+    <div class="table-wrap">
+      <table class="ann-table ann-table-light">
+        <thead>
+          <tr>
+            <th>Métier</th>
+            <th>Compétences actuelles</th>
+            <th>Compétences à développer</th>
+            <th>Priorité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3"><strong>Technicien NovumTech</strong></td>
+            <td>Conversion électrique, diagnostic mécanique, sécurité haute tension</td>
+            <td>Utiliser l'app tablette de contrôle qualité (validation photo + horodatage)</td>
+            <td><span class="badge badge-high">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Contrôle qualité visuel et manuel</td>
+            <td>Interpréter les alertes de maintenance prédictive IoT</td>
+            <td><span class="badge badge-high">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Communication orale avec Jean Lain</td>
+            <td>Documenter son travail numériquement (tablette, arbre de décision)</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><strong>Conseiller après-vente Jean Lain</strong></td>
+            <td>Relation client face à face, prise RDV téléphonique</td>
+            <td>Piloter un CRM HubSpot pour gérer un portefeuille d'abonnés</td>
+            <td><span class="badge badge-high">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Connaissance produit automobile</td>
+            <td>Concevoir et piloter des campagnes de marketing digital (Brevo)</td>
+            <td><span class="badge badge-high">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Aucune culture marketing digital</td>
+            <td>Analyser les données d'usage pour segmenter les offres 149/249/349 €</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+          </tr>
+          <tr>
+            <td rowspan="3"><strong>Coordinateur logistique Jean Lain</strong></td>
+            <td>Gestion stock véhicules, logistique inter-concessions</td>
+            <td>Exploiter un dashboard temps réel pour piloter des flux partagés</td>
+            <td><span class="badge badge-high">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Coordination par téléphone et Excel</td>
+            <td>Décider en temps réel à partir de données chiffrées</td>
+            <td><span class="badge badge-high">Haute</span></td>
+          </tr>
+          <tr>
+            <td>Connaissance du réseau concessions</td>
+            <td>Gérer les interactions partenaires via Notion et Slack</td>
+            <td><span class="badge badge-med">Moyenne</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ANN-C6 : Plan de développement -->
+<section class="sec-light" id="ann-c6">
+  <div class="inner">
+    <div class="ann-label">Annexe C6 · Plan de développement des compétences</div>
+    <h3 class="sec-title">3 priorités de formation</h3>
+    <p class="sec-title-sub">Budget total Phase 1 : 45 000,00 € · Objectifs mesurables par action</p>
+
+    <div class="dev-grid">
+      <div class="dev-card">
+        <div class="dev-card-num">01</div>
+        <div class="dev-card-title">Dashboard temps réel (3 métiers)</div>
+        <div class="dev-card-desc">2 jours formation Galadrim (8 000 €) + 4 semaines pratique sur scénarios simulés. Guide référence rapide A4 permanent.<br><br><strong style="color:rgba(255,255,255,0.7)">Objectif :</strong> 100 % lisent les 7 KPI sans aide en 6 semaines. Réaction alerte &lt; 15 min.</div>
+      </div>
+      <div class="dev-card">
+        <div class="dev-card-num">02</div>
+        <div class="dev-card-title">Marketing digital &amp; CRM (conseiller Jean Lain)</div>
+        <div class="dev-card-desc">Certification HubSpot Academy (3 sem., 3 000 €). Campagne pilote 200 prospects (2 000 €). Mentorat spécialiste 1×/sem. (12 000 €, 2 mois).<br><br><strong style="color:rgba(255,255,255,0.7)">Objectif :</strong> Certification HubSpot obtenue. Taux conversion ≥ 10 %. Pilotage autonome Phase 3.</div>
+      </div>
+      <div class="dev-card">
+        <div class="dev-card-num">03</div>
+        <div class="dev-card-title">Diagnostic IoT (technicien + coordinateur)</div>
+        <div class="dev-card-desc">1 journée formation Galadrim capteurs/alertes (6 000 €). 2 semaines pannes simulées. Arbre de décision numérique intégré à l'app.<br><br><strong style="color:rgba(255,255,255,0.7)">Objectif :</strong> 80 % diagnostics corrects en 3 sem. 90 % sans Galadrim via arbre de décision.</div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border:1px solid var(--bdr);padding:20px 24px">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px">
+        <div style="font-size:13px;color:var(--t2)"><strong style="color:var(--t1)">Formation dashboard</strong> — 8 000,00 €</div>
+        <div style="font-size:13px;color:var(--t2)"><strong style="color:var(--t1)">Coût salarial HubSpot</strong> — ~3 000,00 €/pers.</div>
+        <div style="font-size:13px;color:var(--t2)"><strong style="color:var(--t1)">Mentorat marketing</strong> — 12 000,00 €</div>
+        <div style="font-size:13px;color:var(--t2)"><strong style="color:var(--t1)">Formation IoT</strong> — 6 000,00 €</div>
+        <div style="font-size:13px;color:var(--t2)"><strong style="color:var(--t1)">Campagne pilote</strong> — ~2 000,00 €</div>
+        <div style="font-size:13px;color:var(--green);font-weight:700">TOTAL Phase 1 — 45 000,00 €</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     DP7 — PILOTAGE & SCÉNARIOS
+════════════════════════════════════════════════════ -->
+<section class="sec-dark" id="dp7">
+  <div class="ghost-num">07</div>
+  <div class="inner" style="position:relative;z-index:1">
+    <div class="eyebrow">DP7 · C3.7 — Contrôle de conformité</div>
+    <h2 class="display-title">Pilotage<br>& Scénarios</h2>
+    <p class="display-sub">Boucle MAA (Mesurer → Analyser → Ajuster) à 3 échelles temporelles. 3 scénarios d'ajustement. KPIs de conformité par phase.</p>
+  </div>
+</section>
+
+<!-- ANN-A7 : KPIs par phase -->
+<section class="sec-light" id="ann-a7">
+  <div class="inner">
+    <div class="ann-label">Annexe A7 · KPIs de pilotage par phase</div>
+    <h3 class="sec-title">Indicateurs de conformité</h3>
+    <p class="sec-title-sub">KPI de pilotage (avancement) + KPI business (valeur créée)</p>
+
+    <div class="table-wrap">
+      <table class="ann-table">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>KPI de pilotage</th>
+            <th>Seuil</th>
+            <th>KPI business</th>
+            <th>Seuil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>P1</strong></td>
+            <td>Signatures accords 11 partenaires aux dates</td>
+            <td><span class="badge badge-green">100 %</span></td>
+            <td>Obtention 67 % financement public</td>
+            <td><span class="badge badge-green">Validé M4</span></td>
+          </tr>
+          <tr>
+            <td><strong>P2</strong></td>
+            <td>Homologation UTAC lot 1 avant M7</td>
+            <td><span class="badge badge-amber">Obtenue</span></td>
+            <td>Satisfaction utilisateur 500 essais</td>
+            <td><span class="badge badge-amber">≥ 3,8 / 5</span></td>
+          </tr>
+          <tr>
+            <td><strong>P3</strong></td>
+            <td>Taux d'utilisation flotte Phase 3</td>
+            <td><span class="badge badge-green">85 %</span></td>
+            <td>Nombre d'abonnés payants actifs</td>
+            <td><span class="badge badge-green">2 500</span></td>
+          </tr>
+          <tr>
+            <td><strong>P4</strong></td>
+            <td>Création effective holding Jean Lain / NovumTech</td>
+            <td><span class="badge badge-blue">Réalisée M36</span></td>
+            <td>Contrats licence régionaux signés</td>
+            <td><span class="badge badge-green">2 à 3</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrap">
+      <table class="ann-table">
+        <thead>
+          <tr>
+            <th>Écart</th>
+            <th>Probabilité</th>
+            <th>Impact</th>
+            <th>Seuil alerte</th>
+            <th>Seuil critique</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Retard homologation UTAC</strong></td>
+            <td><span class="badge badge-amber">Moyenne</span></td>
+            <td><span class="badge badge-red">Total</span></td>
+            <td>+30 j sur M7</td>
+            <td>+60 j</td>
+            <td>Audit interne → plan rattrapage NovumTech → homologateur tiers</td>
+          </tr>
+          <tr>
+            <td><strong>Taux utilisation insuffisant</strong></td>
+            <td><span class="badge badge-high">Forte</span></td>
+            <td><span class="badge badge-amber">Moyen-Fort</span></td>
+            <td>50 % (vs 60 %)</td>
+            <td>35 %</td>
+            <td>Analyse cause racine → diagnostic multi-canal → Phase 3 bloquée</td>
+          </tr>
+          <tr>
+            <td><strong>Dépassement budgétaire</strong></td>
+            <td><span class="badge badge-amber">Moyenne</span></td>
+            <td><span class="badge badge-high">Fort</span></td>
+            <td>+8 %</td>
+            <td>+20 %</td>
+            <td>Audit interne → suspension forcée → audit externe</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ANN-B7 : 3 scénarios d'ajustement -->
+<section class="sec-white" id="ann-b7">
+  <div class="inner">
+    <div class="ann-label">Annexe B7 · Scénarios d'ajustement</div>
+    <h3 class="sec-title">3 scénarios de pilotage</h3>
+    <p class="sec-title-sub">Déclencheurs et actions par niveau d'écart</p>
+
+    <div class="scenario-grid">
+      <div class="scenario-card sc-nom">
+        <div class="scenario-tag">Scénario nominal</div>
+        <div class="scenario-title">Boucle trimestrielle</div>
+        <div class="scenario-desc">Écarts inférieurs aux seuils d'alerte. Ajustements mineurs validés en COPIL. Boucle MAA trimestrielle avec compte-rendu décisionnel. Financeurs informés via bilan synthétique.</div>
+      </div>
+      <div class="scenario-card sc-deg">
+        <div class="scenario-tag">Scénario dégradé</div>
+        <div class="scenario-title">Prolongement de phase</div>
+        <div class="scenario-desc">Objectif manqué sans franchir le seuil critique — ex : satisfaction 3,5/5 au lieu de 3,8. Action : prolongement Phase 1–3 mois + audit interne cause racine + ajustement offre tarifaire ou zones de déploiement.</div>
+      </div>
+      <div class="scenario-card sc-crit">
+        <div class="scenario-tag">Scénario critique</div>
+        <div class="scenario-title">Réunion de crise 48 h</div>
+        <div class="scenario-desc">Seuil critique franchi. Réunion crise sous 48 h (clause contractuelle consortium). Audit externe indépendant. 3 décisions possibles : continuer avec plan correctif / suspendre 1–3 mois / arrêter la phase.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANN-C7 : Rythme de pilotage -->
+<section class="sec-light" id="ann-c7">
+  <div class="inner">
+    <div class="ann-label">Annexe C7 · Boucle MAA — rythme de pilotage</div>
+    <h3 class="sec-title">Mesurer → Analyser → Ajuster</h3>
+    <p class="sec-title-sub">3 échelles temporelles pour une conformité continue</p>
+
+    <div class="pilotage-grid">
+      <div class="pilotage-card">
+        <div class="pilotage-freq">Quotidien</div>
+        <div class="pilotage-title">Dashboard COPIL</div>
+        <div class="pilotage-desc">Dashboard Galadrim mis à jour automatiquement via Make + Notion. Les 7 KPI opérationnels en temps réel. Alerte de dérive → réunion crise 48 h (clause contractuelle).</div>
+      </div>
+      <div class="pilotage-card">
+        <div class="pilotage-freq">Trimestriel</div>
+        <div class="pilotage-title">Revue structurée</div>
+        <div class="pilotage-desc">Croisement indicateurs chiffrés et retours qualitatifs (NPS, UX sessions, ambassadeurs métier). Compte-rendu décisionnel avec ajustements validés, responsables et échéances.</div>
+      </div>
+      <div class="pilotage-card">
+        <div class="pilotage-freq">Annuel</div>
+        <div class="pilotage-title">Audit externe</div>
+        <div class="pilotage-desc">Audit indépendant évaluant la conformité globale aux objectifs initiaux et aux engagements envers les financeurs publics (Région AURA, ADEME, France 2030).</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      <div style="background:#fff;border:1px solid var(--bdr);padding:16px 18px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px">Collecte utilisateurs</div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.5">NPS trimestriel (cible &gt;45 fin P3). Enquête satisfaction post-trajet in-app. Sessions UX mensuelles (10 abonnés représentatifs).</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--bdr);padding:16px 18px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px">Collecte équipes</div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.5">Ambassadeurs métier (DP6) remontent irritants via Notion → discutés en COPIL bimestriel. Canal d'escalade 48 h pour problèmes sérieux.</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--bdr);padding:16px 18px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:8px">Veille marché</div>
+        <div style="font-size:13px;color:var(--t2);line-height:1.5">Veille trimestrielle annonces constructeurs et appels d'offres collectivités. Si fenêtre de marché se referme plus vite → accélération calendrier.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div style="margin-bottom:12px">
+    <strong style="color:rgba(255,255,255,0.6)">ArcAURA</strong> — Réseau de mobilité électrique partagée par retrofit · Région AURA
+  </div>
+  <div style="margin-bottom:20px;font-size:12px">
+    Dossier de Présentation DP1–DP7 · Elliot DUMONT, B3 ESI Business School · 2026
+  </div>
+  <a href="index.html" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:13px;border:1px solid rgba(255,255,255,0.12);padding:8px 18px;border-radius:2px;transition:all 0.2s" onmouseover="this.style.color='#fff';this.style.borderColor='rgba(255,255,255,0.4)'" onmouseout="this.style.color='rgba(255,255,255,0.4)';this.style.borderColor='rgba(255,255,255,0.12)'">← Retour au tableau de bord</a>
+</footer>
+
+
+<script>
+  // Progress bar
+  const pbar = document.getElementById('pbar');
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    pbar.style.width = (p * 100).toFixed(2) + '%';
+  }, { passive: true });
+
+  // Side nav IntersectionObserver
+  const sections = ['dp1','dp2','dp3','dp4','dp5','dp6','dp7'];
+  const dots = {};
+  sections.forEach(id => {
+    dots[id] = document.querySelector(`.nav-dot[data-section="${id}"]`);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      if (dots[id]) {
+        if (entry.isIntersecting) {
+          Object.values(dots).forEach(d => d && d.classList.remove('active'));
+          dots[id].classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.4 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Smooth scroll on nav dot click
+  document.querySelectorAll('.nav-dot').forEach(dot => {
+    dot.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(dot.dataset.section);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Tooltip
+  const tooltip = document.getElementById('tooltip');
+  function showTip(e, el) {
+    tooltip.innerHTML = el.dataset.tip.replace(/&#10;/g, '<br>');
+    tooltip.classList.add('show');
+    moveTip(e);
+  }
+  function moveTip(e) {
+    const x = e.clientX + 16;
+    const y = e.clientY - 8;
+    tooltip.style.left = Math.min(x, window.innerWidth - 240) + 'px';
+    tooltip.style.top = y + 'px';
+  }
+  function hideTip() {
+    tooltip.classList.remove('show');
+  }
+  window.showTip = showTip;
+  window.moveTip = moveTip;
+  window.hideTip = hideTip;
 </script>
 </body>
 </html>

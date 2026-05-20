@@ -19,6 +19,10 @@ const initializers = {
 };
 
 export function navigate(pageId) {
+  if (pageId.includes('.html') || pageId.startsWith('http')) {
+    window.location.href = pageId;
+    return;
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById(pageId);
   if (page) page.classList.add('active');
