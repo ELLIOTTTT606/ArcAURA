@@ -27,7 +27,15 @@ async function bootstrap() {
   exposeInlineHandlers();
   bindNavLinks();
   bindModal();
-  navigate('home');
+
+  // Support deep-linking from annexes.html: index.html#budget → navigate directly
+  const hash = window.location.hash.slice(1);
+  const validPages = ['budget', 'gantt', 'comm', 'risks', 'carbon'];
+  if (hash && validPages.includes(hash)) {
+    navigate(hash);
+  } else {
+    navigate('home');
+  }
 }
 
 if (document.readyState === 'loading') {
